@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="hFG-YZ-zRG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="pmE-2i-W1a">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
         <!--Facebook Login View Controller-->
-        <scene sceneID="Roc-Cm-4R6">
+        <scene sceneID="nkx-hl-nhZ">
             <objects>
-                <viewController id="hFG-YZ-zRG" customClass="FacebookLoginViewController" sceneMemberID="viewController">
+                <viewController id="pmE-2i-W1a" customClass="FacebookLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="IG4-oY-47t"/>
-                        <viewControllerLayoutGuide type="bottom" id="cgz-gN-O6m"/>
+                        <viewControllerLayoutGuide type="top" id="VRv-YX-hLL"/>
+                        <viewControllerLayoutGuide type="bottom" id="2eR-BB-o1p"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="AvK-5t-FVr">
+                    <view key="view" contentMode="scaleToFill" id="3IK-J0-cq1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QEJ-Ss-oGl" customClass="FBLoginView">
-                                <rect key="frame" x="119" y="196" width="118" height="250"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njm-Q8-sDc">
+                                <rect key="frame" x="137" y="373" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonPressed:" destination="pmE-2i-W1a" eventType="touchUpInside" id="eZw-FQ-XDR"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o33-IK-Fu9" customClass="FBLoginView">
+                                <rect key="frame" x="101" y="234" width="118" height="100"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Vzr-uc-Alg"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="r8W-ig-qDY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XSh-pE-kaN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="102" y="-44"/>
+            <point key="canvasLocation" x="-227" y="450"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
