@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F2652E3180CFBF8008476F6 /* RoutesCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2652E2180CFBF8008476F6 /* RoutesCDTVC.m */; };
 		1F3D65EB17F928D900C78DF0 /* FacebookLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3D65EA17F928D900C78DF0 /* FacebookLoginViewController.m */; };
 		1F3D65ED17F92C2B00C78DF0 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F3D65EC17F92C2B00C78DF0 /* FacebookSDK.framework */; };
 		1F3D65EF17F931D800C78DF0 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F3D65EE17F931D800C78DF0 /* Main_iPhone.storyboard */; };
 		1F4B07DF180CE61700EE6DC2 /* Route+Barnacle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4B07DE180CE61700EE6DC2 /* Route+Barnacle.m */; };
 		1F4B07E2180CE84600EE6DC2 /* BarnacleRouteFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4B07E1180CE84600EE6DC2 /* BarnacleRouteFetcher.m */; };
 		1F4B07E4180CF35F00EE6DC2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4B07E3180CF35F00EE6DC2 /* CoreData.framework */; };
+		1F4B07E8180CF42F00EE6DC2 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4B07E6180CF42F00EE6DC2 /* CoreDataTableViewController.m */; };
 		1F939C35180B38D6001A5BDD /* RoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F939C34180B38D6001A5BDD /* RoutesViewController.m */; };
 		1F939C3B180BA157001A5BDD /* BarnacleModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F939C39180BA157001A5BDD /* BarnacleModel.xcdatamodeld */; };
 		1F939C3E180BA284001A5BDD /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F939C3D180BA284001A5BDD /* Route.m */; };
@@ -43,6 +45,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F2652E0180CFB67008476F6 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		1F2652E1180CFBF8008476F6 /* RoutesCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutesCDTVC.h; sourceTree = "<group>"; };
+		1F2652E2180CFBF8008476F6 /* RoutesCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesCDTVC.m; sourceTree = "<group>"; };
 		1F3D65E917F928D900C78DF0 /* FacebookLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookLoginViewController.h; sourceTree = "<group>"; };
 		1F3D65EA17F928D900C78DF0 /* FacebookLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookLoginViewController.m; sourceTree = "<group>"; };
 		1F3D65EC17F92C2B00C78DF0 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
@@ -52,6 +57,8 @@
 		1F4B07E0180CE84600EE6DC2 /* BarnacleRouteFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BarnacleRouteFetcher.h; path = BarnacleRouteFetcher/BarnacleRouteFetcher.h; sourceTree = "<group>"; };
 		1F4B07E1180CE84600EE6DC2 /* BarnacleRouteFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BarnacleRouteFetcher.m; path = BarnacleRouteFetcher/BarnacleRouteFetcher.m; sourceTree = "<group>"; };
 		1F4B07E3180CF35F00EE6DC2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1F4B07E5180CF42F00EE6DC2 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
+		1F4B07E6180CF42F00EE6DC2 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		1F939C33180B38D6001A5BDD /* RoutesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutesViewController.h; sourceTree = "<group>"; };
 		1F939C34180B38D6001A5BDD /* RoutesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesViewController.m; sourceTree = "<group>"; };
 		1F939C3A180BA157001A5BDD /* BarnacleModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BarnacleModel.xcdatamodel; sourceTree = "<group>"; };
@@ -108,9 +115,9 @@
 			isa = PBXGroup;
 			children = (
 				1F939C3C180BA284001A5BDD /* Route.h */,
+				1F939C3D180BA284001A5BDD /* Route.m */,
 				1F4B07DD180CE61700EE6DC2 /* Route+Barnacle.h */,
 				1F4B07DE180CE61700EE6DC2 /* Route+Barnacle.m */,
-				1F939C3D180BA284001A5BDD /* Route.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -118,6 +125,7 @@
 		1FA2E43317F2B52E00CA5CF9 = {
 			isa = PBXGroup;
 			children = (
+				1F2652E0180CFB67008476F6 /* Constants.h */,
 				1F939C39180BA157001A5BDD /* BarnacleModel.xcdatamodeld */,
 				1F4B07E0180CE84600EE6DC2 /* BarnacleRouteFetcher.h */,
 				1F4B07E1180CE84600EE6DC2 /* BarnacleRouteFetcher.m */,
@@ -154,8 +162,12 @@
 		1FA2E44517F2B52E00CA5CF9 /* Barnacle */ = {
 			isa = PBXGroup;
 			children = (
+				1F4B07E5180CF42F00EE6DC2 /* CoreDataTableViewController.h */,
+				1F4B07E6180CF42F00EE6DC2 /* CoreDataTableViewController.m */,
 				1FA2E45417F2B52E00CA5CF9 /* Main_iPad.storyboard */,
 				1F3D65EE17F931D800C78DF0 /* Main_iPhone.storyboard */,
+				1F2652E1180CFBF8008476F6 /* RoutesCDTVC.h */,
+				1F2652E2180CFBF8008476F6 /* RoutesCDTVC.m */,
 				1F939C33180B38D6001A5BDD /* RoutesViewController.h */,
 				1F939C34180B38D6001A5BDD /* RoutesViewController.m */,
 				1FA2E45717F2B52E00CA5CF9 /* BarnacleViewController.h */,
@@ -298,10 +310,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F2652E3180CFBF8008476F6 /* RoutesCDTVC.m in Sources */,
 				1FA2E45017F2B52E00CA5CF9 /* BarnacleAppDelegate.m in Sources */,
 				1FA2E44C17F2B52E00CA5CF9 /* main.m in Sources */,
 				1F3D65EB17F928D900C78DF0 /* FacebookLoginViewController.m in Sources */,
 				1FA2E45917F2B52E00CA5CF9 /* BarnacleViewController.m in Sources */,
+				1F4B07E8180CF42F00EE6DC2 /* CoreDataTableViewController.m in Sources */,
 				1F939C35180B38D6001A5BDD /* RoutesViewController.m in Sources */,
 				1F4B07E2180CE84600EE6DC2 /* BarnacleRouteFetcher.m in Sources */,
 				1F4B07DF180CE61700EE6DC2 /* Route+Barnacle.m in Sources */,

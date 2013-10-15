@@ -70,34 +70,35 @@
                          [NSString stringWithFormat:@"Location: %@\n\n",
                           user.location[@"name"]]];
              
-             NSLog(userInfo);
+//             NSLog(userInfo);
              
-             // login
-             NSMutableURLRequest *request = [NSMutableURLRequest
-                                             requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/signup/fb"]];
-             NSDictionary *requestData = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                          user.id, @"id",
-                                          user.first_name, @"first_name",
-                                          user.last_name, @"last_name",
-                                          [user objectForKey:@"email"], @"email",                    user.location[@"name"], @"location",nil];
-             NSError *error;
-             NSData *postData = [NSJSONSerialization dataWithJSONObject:requestData options:0 error:&error];
-             [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-             [request setHTTPMethod:@"POST"];
-             [request setHTTPBody:postData];
-             NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-             
-             request = [NSMutableURLRequest
-                        requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/track/getroutes"]];
-             [request setHTTPMethod:@"GET"];
-             NSURLResponse *response;
-             NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
-             NSString *data=[[NSString alloc]initWithData:urlData encoding:NSUTF8StringEncoding];
-//             NSLog(data);
-             NSDictionary *JSON =
-             [NSJSONSerialization JSONObjectWithData: urlData options: NSJSONReadingMutableContainers
-                                               error: &error];
-             NSLog([JSON description]);
+//             // login
+//             NSMutableURLRequest *request = [NSMutableURLRequest
+//                                             requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/signup/fb"]];
+//             NSDictionary *requestData = [[NSDictionary alloc] initWithObjectsAndKeys:
+//                                          user.id, @"id",
+//                                          user.first_name, @"first_name",
+//                                          user.last_name, @"last_name",
+//                                          [user objectForKey:@"email"], @"email",                    user.location[@"name"], @"location",nil];
+//             NSError *error;
+//             NSData *postData = [NSJSONSerialization dataWithJSONObject:requestData options:0 error:&error];
+//             [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//             [request setHTTPMethod:@"POST"];
+//             [request setHTTPBody:postData];
+//             NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+//             
+//             
+//             request = [NSMutableURLRequest
+//                        requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/track/getroutes"]];
+//             [request setHTTPMethod:@"GET"];
+//             NSURLResponse *response;
+//             NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
+//             NSString *data=[[NSString alloc]initWithData:urlData encoding:NSUTF8StringEncoding];
+////             NSLog(data);
+//             NSDictionary *JSON =
+//             [NSJSONSerialization JSONObjectWithData: urlData options: NSJSONReadingMutableContainers
+//                                               error: &error];
+//             NSLog([JSON description]);
 
          } else {
 
