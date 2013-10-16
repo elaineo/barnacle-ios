@@ -8,10 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-#define BARNACLE_ROUTE_KEY @"key"
+#define BARNACLE_ROUTE_KEY @"routekey"
+#define BARNACLE_STATUSINT @"statusint"
+#define BARNACLE_DELIVEND @"delivend"
+#define BARNACLE_POST_URL @"post_url"
 #define BARNACLE_LOC_START @"locstart"
 #define BARNACLE_LOC_END @"locend"
 
 @interface BarnacleRouteFetcher : NSObject
+
++ (NSArray *)latestRoutes;
 
 @end

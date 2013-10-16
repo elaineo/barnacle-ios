@@ -11,11 +11,11 @@
 
 @implementation Route (Barnacle)
 + (Route*) routeWithBarnacleInfo:(NSDictionary*) routeDictionary inManagedObjectConext:(NSManagedObjectContext*) context{
-            NSLog(@"newA");
     Route *route = nil;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Route"];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"locstart" ascending:YES]];
-    request.predicate = [NSPredicate predicateWithFormat:@"key = %@", [routeDictionary[BARNACLE_ROUTE_KEY] description]];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BARNACLE_LOC_START ascending:YES]];
+    [BARNACLE_ROUTE_KEY stringByAppendingString:@" = %@"];
+    request.predicate = [NSPredicate predicateWithFormat:    [BARNACLE_ROUTE_KEY stringByAppendingString:@" = %@"], [routeDictionary[BARNACLE_ROUTE_KEY] description]];
     
     NSError *error = nil;
     NSArray *matches = [context executeFetchRequest:request error:&error];
@@ -29,14 +29,15 @@
     } else if (![matches count]) {
         NSLog(@"new");
         route = [NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:context];
-        route.key = routeDictionary[BARNACLE_ROUTE_KEY];
+        route.routekey = routeDictionary[BARNACLE_ROUTE_KEY];
+        route.delivend = routeDictionary[BARNACLE_DELIVEND];
+        route.posturl = routeDictionary[BARNACLE_POST_URL];
         route.locstart = routeDictionary[BARNACLE_LOC_START];
         route.locend = routeDictionary[BARNACLE_LOC_END];
+        route.statusint = routeDictionary[BARNACLE_STATUSINT];
     } else {
         route = [matches lastObject];
     }
-    NSLog([route.key description]);
-    NSLog([route description]);
     return route;
 }
 @end

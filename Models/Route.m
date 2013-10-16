@@ -2,7 +2,7 @@
 //  Route.m
 //  Barnacle
 //
-//  Created by Warren Mar on 10/13/13.
+//  Created by Warren Mar on 10/15/13.
 //  Copyright (c) 2013 Warren Mar. All rights reserved.
 //
 
@@ -11,8 +11,12 @@
 
 @implementation Route
 
-@dynamic key;
-@dynamic locstart;
+@dynamic routekey;
 @dynamic locend;
+@dynamic locstart;
+@dynamic statusint;
+@dynamic status;
+@dynamic delivend;
+@dynamic posturl;
 
 @end

@@ -17,7 +17,6 @@
 		1F4B07E8180CF42F00EE6DC2 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4B07E6180CF42F00EE6DC2 /* CoreDataTableViewController.m */; };
 		1F939C35180B38D6001A5BDD /* RoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F939C34180B38D6001A5BDD /* RoutesViewController.m */; };
 		1F939C3B180BA157001A5BDD /* BarnacleModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F939C39180BA157001A5BDD /* BarnacleModel.xcdatamodeld */; };
-		1F939C3E180BA284001A5BDD /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F939C3D180BA284001A5BDD /* Route.m */; };
 		1FA2E44017F2B52E00CA5CF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA2E43F17F2B52E00CA5CF9 /* Foundation.framework */; };
 		1FA2E44217F2B52E00CA5CF9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA2E44117F2B52E00CA5CF9 /* CoreGraphics.framework */; };
 		1FA2E44417F2B52E00CA5CF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA2E44317F2B52E00CA5CF9 /* UIKit.framework */; };
@@ -32,6 +31,8 @@
 		1FA2E46417F2B52E00CA5CF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA2E44317F2B52E00CA5CF9 /* UIKit.framework */; };
 		1FA2E46C17F2B52E00CA5CF9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FA2E46A17F2B52E00CA5CF9 /* InfoPlist.strings */; };
 		1FA2E46E17F2B52E00CA5CF9 /* BarnacleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA2E46D17F2B52E00CA5CF9 /* BarnacleTests.m */; };
+		1FCADFC8180E5B7B00B41CBE /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCADFC7180E5B7B00B41CBE /* Route.m */; };
+		1FCADFCB180E5FBA00B41CBE /* RouteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCADFCA180E5FBA00B41CBE /* RouteDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,8 +63,6 @@
 		1F939C33180B38D6001A5BDD /* RoutesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutesViewController.h; sourceTree = "<group>"; };
 		1F939C34180B38D6001A5BDD /* RoutesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesViewController.m; sourceTree = "<group>"; };
 		1F939C3A180BA157001A5BDD /* BarnacleModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BarnacleModel.xcdatamodel; sourceTree = "<group>"; };
-		1F939C3C180BA284001A5BDD /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Route.h; path = Models/Route.h; sourceTree = "<group>"; };
-		1F939C3D180BA284001A5BDD /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Route.m; path = Models/Route.m; sourceTree = "<group>"; };
 		1FA2E43C17F2B52E00CA5CF9 /* Barnacle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Barnacle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA2E43F17F2B52E00CA5CF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1FA2E44117F2B52E00CA5CF9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -83,6 +82,10 @@
 		1FA2E46917F2B52E00CA5CF9 /* BarnacleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BarnacleTests-Info.plist"; sourceTree = "<group>"; };
 		1FA2E46B17F2B52E00CA5CF9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1FA2E46D17F2B52E00CA5CF9 /* BarnacleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BarnacleTests.m; sourceTree = "<group>"; };
+		1FCADFC6180E5B7B00B41CBE /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Route.h; path = Models/Route.h; sourceTree = "<group>"; };
+		1FCADFC7180E5B7B00B41CBE /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Route.m; path = Models/Route.m; sourceTree = "<group>"; };
+		1FCADFC9180E5FBA00B41CBE /* RouteDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteDetailViewController.h; sourceTree = "<group>"; };
+		1FCADFCA180E5FBA00B41CBE /* RouteDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,8 +117,9 @@
 		1F939C3F180BA294001A5BDD /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1F939C3C180BA284001A5BDD /* Route.h */,
-				1F939C3D180BA284001A5BDD /* Route.m */,
+				1F939C39180BA157001A5BDD /* BarnacleModel.xcdatamodeld */,
+				1FCADFC6180E5B7B00B41CBE /* Route.h */,
+				1FCADFC7180E5B7B00B41CBE /* Route.m */,
 				1F4B07DD180CE61700EE6DC2 /* Route+Barnacle.h */,
 				1F4B07DE180CE61700EE6DC2 /* Route+Barnacle.m */,
 			);
@@ -126,7 +130,6 @@
 			isa = PBXGroup;
 			children = (
 				1F2652E0180CFB67008476F6 /* Constants.h */,
-				1F939C39180BA157001A5BDD /* BarnacleModel.xcdatamodeld */,
 				1F4B07E0180CE84600EE6DC2 /* BarnacleRouteFetcher.h */,
 				1F4B07E1180CE84600EE6DC2 /* BarnacleRouteFetcher.m */,
 				1F939C3F180BA294001A5BDD /* Models */,
@@ -162,20 +165,20 @@
 		1FA2E44517F2B52E00CA5CF9 /* Barnacle */ = {
 			isa = PBXGroup;
 			children = (
-				1F4B07E5180CF42F00EE6DC2 /* CoreDataTableViewController.h */,
-				1F4B07E6180CF42F00EE6DC2 /* CoreDataTableViewController.m */,
 				1FA2E45417F2B52E00CA5CF9 /* Main_iPad.storyboard */,
 				1F3D65EE17F931D800C78DF0 /* Main_iPhone.storyboard */,
+				1FCADFC9180E5FBA00B41CBE /* RouteDetailViewController.h */,
+				1FCADFCA180E5FBA00B41CBE /* RouteDetailViewController.m */,
 				1F2652E1180CFBF8008476F6 /* RoutesCDTVC.h */,
 				1F2652E2180CFBF8008476F6 /* RoutesCDTVC.m */,
 				1F939C33180B38D6001A5BDD /* RoutesViewController.h */,
 				1F939C34180B38D6001A5BDD /* RoutesViewController.m */,
 				1FA2E45717F2B52E00CA5CF9 /* BarnacleViewController.h */,
 				1FA2E45817F2B52E00CA5CF9 /* BarnacleViewController.m */,
-				1FA2E45A17F2B52E00CA5CF9 /* Images.xcassets */,
-				1FA2E44617F2B52E00CA5CF9 /* Supporting Files */,
 				1F3D65E917F928D900C78DF0 /* FacebookLoginViewController.h */,
 				1F3D65EA17F928D900C78DF0 /* FacebookLoginViewController.m */,
+				1FA2E45A17F2B52E00CA5CF9 /* Images.xcassets */,
+				1FA2E44617F2B52E00CA5CF9 /* Supporting Files */,
 			);
 			path = Barnacle;
 			sourceTree = "<group>";
@@ -183,6 +186,8 @@
 		1FA2E44617F2B52E00CA5CF9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1F4B07E5180CF42F00EE6DC2 /* CoreDataTableViewController.h */,
+				1F4B07E6180CF42F00EE6DC2 /* CoreDataTableViewController.m */,
 				1FA2E44E17F2B52E00CA5CF9 /* BarnacleAppDelegate.h */,
 				1FA2E44F17F2B52E00CA5CF9 /* BarnacleAppDelegate.m */,
 				1FA2E44717F2B52E00CA5CF9 /* Barnacle-Info.plist */,
@@ -314,13 +319,14 @@
 				1FA2E45017F2B52E00CA5CF9 /* BarnacleAppDelegate.m in Sources */,
 				1FA2E44C17F2B52E00CA5CF9 /* main.m in Sources */,
 				1F3D65EB17F928D900C78DF0 /* FacebookLoginViewController.m in Sources */,
+				1FCADFC8180E5B7B00B41CBE /* Route.m in Sources */,
 				1FA2E45917F2B52E00CA5CF9 /* BarnacleViewController.m in Sources */,
 				1F4B07E8180CF42F00EE6DC2 /* CoreDataTableViewController.m in Sources */,
 				1F939C35180B38D6001A5BDD /* RoutesViewController.m in Sources */,
 				1F4B07E2180CE84600EE6DC2 /* BarnacleRouteFetcher.m in Sources */,
 				1F4B07DF180CE61700EE6DC2 /* Route+Barnacle.m in Sources */,
 				1F939C3B180BA157001A5BDD /* BarnacleModel.xcdatamodeld in Sources */,
-				1F939C3E180BA284001A5BDD /* Route.m in Sources */,
+				1FCADFCB180E5FBA00B41CBE /* RouteDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

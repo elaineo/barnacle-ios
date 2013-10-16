@@ -72,21 +72,21 @@
              
 //             NSLog(userInfo);
              
-//             // login
-//             NSMutableURLRequest *request = [NSMutableURLRequest
-//                                             requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/signup/fb"]];
-//             NSDictionary *requestData = [[NSDictionary alloc] initWithObjectsAndKeys:
-//                                          user.id, @"id",
-//                                          user.first_name, @"first_name",
-//                                          user.last_name, @"last_name",
-//                                          [user objectForKey:@"email"], @"email",                    user.location[@"name"], @"location",nil];
-//             NSError *error;
-//             NSData *postData = [NSJSONSerialization dataWithJSONObject:requestData options:0 error:&error];
-//             [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//             [request setHTTPMethod:@"POST"];
-//             [request setHTTPBody:postData];
-//             NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-//             
+             // login
+             NSMutableURLRequest *request = [NSMutableURLRequest
+                                             requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/signup/fb"]];
+             NSDictionary *requestData = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                          user.id, @"id",
+                                          user.first_name, @"first_name",
+                                          user.last_name, @"last_name",
+                                          [user objectForKey:@"email"], @"email",                    user.location[@"name"], @"location",nil];
+             NSError *error;
+             NSData *postData = [NSJSONSerialization dataWithJSONObject:requestData options:0 error:&error];
+             [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+             [request setHTTPMethod:@"POST"];
+             [request setHTTPBody:postData];
+             NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+//
 //             
 //             request = [NSMutableURLRequest
 //                        requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/track/getroutes"]];

@@ -9,6 +9,7 @@
 #import "RoutesCDTVC.h"
 #import "Route.h"
 #import "Route+Barnacle.h"
+#import "BarnacleRouteFetcher.h"
 
 @interface RoutesCDTVC ()
 @end
@@ -28,7 +29,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-        NSLog(@"will appear");
+    NSLog(@"will appear");
     if (!self.managedObjectContext) [self useDemoDocument];
     
 }
@@ -36,7 +37,7 @@
 - (void)useDemoDocument
 {
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    url = [url URLByAppendingPathComponent:@"Demo Document"];
+    url = [url URLByAppendingPathComponent:@"Demo Document3"];
     UIManagedDocument *document = [[UIManagedDocument alloc] initWithFileURL:url];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
@@ -66,30 +67,18 @@
     [self.refreshControl beginRefreshing];
     dispatch_queue_t fetchQ = dispatch_queue_create("Flickr Fetch", NULL);
     dispatch_async(fetchQ, ^{
-//        NSArray *photos = [FlickrFetcher latestGeoreferencedPhotos];
-        // put the photos in Core Data
+        NSArray *routes = [BarnacleRouteFetcher latestRoutes];
         [self.managedObjectContext performBlock:^{
-            NSDictionary *route1 = @{
-                                     @"key" : @"abc",
-                                     @"locstart" : @"SF",
-                                     @"locend" : @"LA",
-                                     };
-            NSDictionary *route2 = @{
-                                     @"key" : @"ab3234c",
-                                     @"locstart" : @"SF",
-                                     @"locend" : @"LV",
-                                     };
-            
-            NSLog(@"refresh");
-            NSLog([self.managedObjectContext description]);
-            [Route routeWithBarnacleInfo:route1 inManagedObjectConext:self.managedObjectContext];
-            [Route routeWithBarnacleInfo:route2 inManagedObjectConext:self.managedObjectContext];
+            for (NSDictionary *route in routes) {
+                NSLog(@"%@", [route description]);
+                [Route routeWithBarnacleInfo:route inManagedObjectConext:self.managedObjectContext];
+            }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.refreshControl endRefreshing];
             });
         }];
     });
- }
+}
 
 
 
@@ -104,9 +93,9 @@
     _managedObjectContext = managedObjectContext;
     if (managedObjectContext) {
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Route"];
-        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"key" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BARNACLE_STATUSINT ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
         request.predicate = nil; // all routes
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:BARNACLE_STATUSINT cacheName:nil];
     } else {
         self.fetchedResultsController = nil;
     }
@@ -117,12 +106,32 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Route"];
     
     Route *route = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        NSLog(route.key);
-    NSLog(route.locstart);
+    NSLog(@"%@", route.routekey);
+    NSLog(@"%@", route.locstart);
     cell.textLabel.text = route.locstart;
     cell.detailTextLabel.text = route.locend;
     
     return cell;
+}
+
+NSIndexPath *indexPath = nil;
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([sender isKindOfClass:[UITableViewCell class]]) {
+        indexPath = [self.tableView indexPathForCell:sender];
+    }
+    
+    if (indexPath) {
+        NSLog(@"prepare for segue");
+        if ([segue.identifier isEqualToString:@"setRoute:"]) {
+            Route *route = [self.fetchedResultsController objectAtIndexPath:indexPath];
+            if ([segue.destinationViewController respondsToSelector:@selector(setRoute:)]) {
+                NSLog(@"preform"
+                      );
+                [segue.destinationViewController performSelector:@selector(setRoute:) withObject:route];
+            }
+        }
+    }
 }
 
 @end
