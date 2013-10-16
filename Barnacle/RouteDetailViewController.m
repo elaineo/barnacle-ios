@@ -13,22 +13,29 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *locstart;
 @property (weak, nonatomic) IBOutlet UILabel *locend;
+@property (weak, nonatomic) IBOutlet UILabel *statusValue;
+@property (weak, nonatomic) IBOutlet UILabel *delivend;
 
 @end
 
 @implementation RouteDetailViewController
 
 
+
 - (void)setRoute:(Route *)route
 {
     _route = route;
-    self.title = _route.routekey;
-    self.locstart.text = route.locstart;
-    self.locend.text = route.locend;
-    self.locstart.alpha = 0.5;
-    NSLog(route.locend);
-    NSLog(@"setroute");
+    [self updateUI];
 }
+
+- (void) updateUI{
+    self.title = self.route.routekey;
+    self.locstart.text = self.route.locstart;
+    self.locend.text = self.route.locend;
+    self.statusValue.text =  [NSString stringWithFormat:@"%d", self.route.statusint];
+    self.delivend.text = self.route.delivend;
+}
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,6 +46,7 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,7 +55,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    [self updateUI];
 }
 
 - (void)didReceiveMemoryWarning
