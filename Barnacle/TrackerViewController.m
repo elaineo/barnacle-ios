@@ -8,10 +8,12 @@
 
 #import "TrackerViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
 @interface TrackerViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *latitude;
 
+@property (weak, nonatomic) IBOutlet MKMapView *mapview;
 @property (weak, nonatomic) IBOutlet UILabel *longitude;
 @end
 
@@ -41,8 +43,7 @@
 }
 - (IBAction)updateLocation:(id)sender {
     locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
+    locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
     [locationManager startUpdatingLocation];
 }
 
@@ -63,6 +64,15 @@
         self.longitude.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
         self.latitude.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
     }
+    //
+    MKCoordinateRegion region;
+    MKCoordinateSpan span;
+    span.latitudeDelta = 0.25;
+    span.longitudeDelta = 0.25;
+
+    region.span = span;
+    region.center = currentLocation.coordinate;
+    [[self mapview] setRegion:region animated:YES];
 }
 
 @end
