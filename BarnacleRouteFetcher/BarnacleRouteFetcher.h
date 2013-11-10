@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #define BARNACLE_ROUTE_KEY @"routekey"
+#define BARNACLE_STATUS @"status"
 #define BARNACLE_STATUSINT @"statusint"
 #define BARNACLE_DELIVEND @"delivend"
 #define BARNACLE_POST_URL @"post_url"

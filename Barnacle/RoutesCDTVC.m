@@ -61,10 +61,21 @@
 }
 
 
+
 // TODO fix
 - (IBAction)refresh
 {
     [self.refreshControl beginRefreshing];
+    
+    // begin delete existing database
+    NSManagedObjectContext * context = [self managedObjectContext];
+    NSFetchRequest * fetch = [[NSFetchRequest alloc] init];
+    [fetch setEntity:[NSEntityDescription entityForName:@"Route" inManagedObjectContext:context]];
+    NSArray * result = [context executeFetchRequest:fetch error:nil];
+    for (id basket in result)
+        [context deleteObject:basket];
+    // end delete existing database
+    
     dispatch_queue_t fetchQ = dispatch_queue_create("Flickr Fetch", NULL);
     dispatch_async(fetchQ, ^{
         NSArray *routes = [BarnacleRouteFetcher latestRoutes];
@@ -93,9 +104,9 @@
     _managedObjectContext = managedObjectContext;
     if (managedObjectContext) {
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Route"];
-        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BARNACLE_STATUSINT ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BARNACLE_STATUS ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
         request.predicate = nil; // all routes
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:BARNACLE_STATUSINT cacheName:nil];
+        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:BARNACLE_STATUS cacheName:nil];
     } else {
         self.fetchedResultsController = nil;
     }
@@ -126,8 +137,7 @@ NSIndexPath *indexPath = nil;
         if ([segue.identifier isEqualToString:@"setRoute:"]) {
             Route *route = [self.fetchedResultsController objectAtIndexPath:indexPath];
             if ([segue.destinationViewController respondsToSelector:@selector(setRoute:)]) {
-                NSLog(@"preform"
-                      );
+                NSLog(@"preform");
                 [segue.destinationViewController performSelector:@selector(setRoute:) withObject:route];
             }
         }

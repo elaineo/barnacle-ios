@@ -24,7 +24,7 @@
     }
     if (!matches || ([matches count] > 1) ){
         NSLog(@"error");
-        NSLog([error description]);
+        NSLog(@"%@", [error description]);
         // handle error
     } else if (![matches count]) {
         NSLog(@"new");
@@ -34,7 +34,29 @@
         route.posturl = routeDictionary[BARNACLE_POST_URL];
         route.locstart = routeDictionary[BARNACLE_LOC_START];
         route.locend = routeDictionary[BARNACLE_LOC_END];
-        route.statusint = routeDictionary[BARNACLE_STATUSINT];
+        route.statusint = [routeDictionary[BARNACLE_STATUSINT] integerValue];
+        NSLog(@"%d",  route.statusint);
+        if ( route.statusint == 0) {
+            NSLog(@"PANDA");
+        }
+        switch ([routeDictionary[BARNACLE_STATUSINT] integerValue]) {
+            case 0:
+                route.status = @"Active";
+                break;
+            case 1:
+                route.status = @"Inactive";
+                                break;
+            case 2:
+                route.status = @"Waiting Confirmation";
+                                break;
+            case 3:
+                route.status = @"Completed";
+                                break;
+            default:
+                route.status = @"undefined";
+                                break;
+        }
+//        route.statusint = routeDictionary[BARNACLE_STATUSINT];
     } else {
         route = [matches lastObject];
     }

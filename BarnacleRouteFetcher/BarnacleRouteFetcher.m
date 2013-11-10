@@ -18,9 +18,8 @@
     NSURLResponse *response;
     NSError *error;
      NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
-    NSString *data = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
-    NSLog(data);
-    NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData: urlData options:NSJSONReadingMutableContainers error:&error];
+//    NSString *data = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
+    NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData: urlData options:NSJSONReadingMutableContainers error:&error];    
     return [JSON valueForKeyPath:@"routes"];
 }
 
