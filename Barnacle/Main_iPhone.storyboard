@@ -258,11 +258,19 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wT7-fV-ZVM">
+                                <rect key="frame" x="136" y="517" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="changeStatus:" destination="YdN-TC-Vo5" eventType="valueChanged" id="Z8L-NJ-kUZ"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="8dp-Nk-5ij"/>
                     <connections>
+                        <outlet property="active" destination="wT7-fV-ZVM" id="5J4-cy-6Vb"/>
                         <outlet property="delivend" destination="fOu-Th-GNc" id="Gcu-IA-3g2"/>
                         <outlet property="locend" destination="EBz-pi-uUh" id="rj2-Va-KFO"/>
                         <outlet property="locstart" destination="r4n-JU-Oc1" id="3dR-yt-B5X"/>

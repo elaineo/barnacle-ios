@@ -23,4 +23,8 @@
     return [JSON valueForKeyPath:@"routes"];
 }
 
++ (BOOL) deleteRoute:(NSString*) routeKey {
+    return YES;
+}
+
 @end

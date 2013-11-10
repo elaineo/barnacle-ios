@@ -15,11 +15,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *locend;
 @property (weak, nonatomic) IBOutlet UILabel *statusValue;
 @property (weak, nonatomic) IBOutlet UILabel *delivend;
+@property (weak, nonatomic) IBOutlet UISwitch *active;
 
 @end
 
 @implementation RouteDetailViewController
-
 
 
 - (void)setRoute:(Route *)route
@@ -33,7 +33,27 @@
     self.locstart.text = self.route.locstart;
     self.locend.text = self.route.locend;
     self.statusValue.text =  [NSString stringWithFormat:@"%d", self.route.statusint];
+    if (self.route.statusint <= 1) {
+        [self active].hidden = NO;
+    } else {
+        [self active].hidden = YES;
+    }
+    if (self.route.statusint == 0) {
+        self.active.on = YES;
+    } else {
+        self.active.on = NO;
+    }
     self.delivend.text = self.route.delivend;
+}
+
+- (IBAction)changeStatus:(UISwitch*)sender {
+    if (sender.on) {
+        [self route].statusint = 0;
+        self.route.status = @"Active";
+    } else {
+        [self route].statusint = 1;
+        self.route.status = @"Inactive";
+    }
 }
 
 
@@ -51,6 +71,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
