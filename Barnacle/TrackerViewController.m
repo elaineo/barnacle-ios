@@ -9,6 +9,7 @@
 #import "TrackerViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "BarnacleRouteFetcher.h"
 
 @interface TrackerViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *latitude;
@@ -64,6 +65,7 @@
         self.longitude.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
         self.latitude.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
     }
+//    [BarnacleRouteFetcher updateLocation: currentLocation];
     //
     MKCoordinateRegion region;
     MKCoordinateSpan span;

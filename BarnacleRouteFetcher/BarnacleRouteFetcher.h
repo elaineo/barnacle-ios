@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 #define BARNACLE_ROUTE_KEY @"routekey"
 #define BARNACLE_STATUS @"status"
@@ -19,5 +20,6 @@
 @interface BarnacleRouteFetcher : NSObject
 
 + (NSArray *)latestRoutes;
-
++ (BOOL) switchStatus:(NSString*) routeKey;
++ (BOOL) updateLocation: (CLLocation*) location;
 @end

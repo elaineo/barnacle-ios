@@ -7,7 +7,7 @@
 //
 
 #import "BarnacleRouteFetcher.h"
-
+#import <CoreLocation/CoreLocation.h>
 
 
 @implementation BarnacleRouteFetcher
@@ -24,6 +24,51 @@
 }
 
 + (BOOL) deleteRoute:(NSString*) routeKey {
+    return YES;
+}
+
++ (BOOL) switchStatus:(NSString*) routeKey {
+    NSArray *objects = [NSArray arrayWithObjects: routeKey, [NSNumber numberWithInt:1], nil];
+    NSArray *keys = [NSArray arrayWithObjects: @"routekey", @"status", nil];
+    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects
+                                                         forKeys:keys ];
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/track/status"]];
+
+
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:jsonData];
+    NSURLResponse *response;
+    NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
+    return YES;
+}
+
++ (BOOL) updateLocation: (CLLocation*) location {
+    double lat = location.coordinate.latitude;
+    double lon = location.coordinate.longitude;
+    NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithDouble:lat], [NSNumber numberWithDouble:lon], nil];
+    NSArray *keys = [NSArray arrayWithObjects: @"lat", @"lon", nil];
+    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects
+                                                         forKeys:keys ];
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSLog(jsonString);
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/track/updateloc"]];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:jsonData];
+//    [request setValue:@"application/json" forKey:@"Accept"];
+//    [request setValue:@"application/json" forKey:@"Content-Type"];
+//    [request s]
+//    [request setHTTPBody: jsonData];
+    NSURLResponse *response;
+
+    NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
+
     return YES;
 }
 

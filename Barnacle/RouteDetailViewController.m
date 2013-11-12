@@ -8,6 +8,7 @@
 
 #import "RouteDetailViewController.h"
 #import "Route.h"
+#import "BarnacleRouteFetcher.h"
 
 @interface RouteDetailViewController ()
 
@@ -54,6 +55,7 @@
         [self route].statusint = 1;
         self.route.status = @"Inactive";
     }
+    [BarnacleRouteFetcher switchStatus: self.route.routekey];
 }
 
 
