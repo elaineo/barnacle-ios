@@ -55,7 +55,10 @@
         [self route].statusint = 1;
         self.route.status = @"Inactive";
     }
-    [BarnacleRouteFetcher switchStatus: self.route.routekey];
+    dispatch_queue_t fetchQ = dispatch_queue_create("Status Update", NULL);
+    dispatch_async(fetchQ, ^{
+        [BarnacleRouteFetcher switchStatus: self.route.routekey];
+    });
 }
 
 

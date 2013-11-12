@@ -45,6 +45,9 @@
     NSURLResponse *response;
     NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
     return YES;
+    
+    
+
 }
 
 + (BOOL) updateLocation: (CLLocation*) location {
