@@ -174,6 +174,7 @@
                     <navigationItem key="navigationItem" id="Y2f-yM-bJ9"/>
                     <connections>
                         <outlet property="autoSwitch" destination="K3G-cz-2PM" id="h32-dw-fLt"/>
+                        <outlet property="intervalIncrementer" destination="Cv7-lZ-2ig" id="eCl-KB-vyS"/>
                         <outlet property="longitude" destination="R9q-Nh-0J3" id="TCu-uL-wwz"/>
                         <outlet property="mapview" destination="LYO-v3-Wf6" id="rgd-0A-m0X"/>
                         <outlet property="updateIntervalDisplay" destination="Ng6-oS-6Bl" id="cGn-9g-7P0"/>

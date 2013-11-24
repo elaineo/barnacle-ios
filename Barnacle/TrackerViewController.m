@@ -19,6 +19,7 @@
 @property BOOL autoUpdateState;
 @property double interval;
 @property (weak, nonatomic) IBOutlet UISwitch *autoSwitch;
+@property (weak, nonatomic) IBOutlet UIStepper *intervalIncrementer;
 
 @end
 
@@ -65,6 +66,10 @@
     UIStepper *stepper = (UIStepper *) sender;
     self.interval = stepper.value;
     [self updateIntervalDisplayUI];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setDouble:stepper.value forKey:@"autoUpdateLocationInterval"];
+    [defaults synchronize];
+
     NSLog(@"%1.0f", stepper.value);
 }
 
@@ -72,15 +77,15 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+
+    // Grab user defaults
     NSUserDefaults *fetchDefaults = [NSUserDefaults standardUserDefaults];
     self.autoUpdateState = [fetchDefaults boolForKey:@"autoUpdateLocation"];
     self.interval = [fetchDefaults doubleForKey:@"autoUpdateLocationInterval"];
+    [self.intervalIncrementer setValue:self.interval];
     [self updateIntervalDisplayUI];
-    if (self.autoUpdateState) {
-        NSLog(@"YES");
-    } else {
-        NSLog(@"NO");
-    }
+
+    //
     locationManager = [[CLLocationManager alloc] init];
 }
 
