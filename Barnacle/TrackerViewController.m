@@ -38,8 +38,10 @@
 - (void) updateIntervalDisplayUI {
     if (self.autoUpdateState) {
         self.updateIntervalDisplay.text = [NSString stringWithFormat:@"update every %1.0f minutes", self.interval];
+        [self.autoSwitch setOn:YES];
     } else {
         self.updateIntervalDisplay.text = @"Auto Update Off";
+        [self.autoSwitch setOn:NO];
     }
 }
 
@@ -52,6 +54,9 @@
     } else {
         self.autoUpdateState = NO;
     }
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:[stepper isOn] forKey:@"autoUpdateLocation"];
+    [defaults synchronize];
     [self updateIntervalDisplayUI];
 }
 
@@ -67,6 +72,15 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    NSUserDefaults *fetchDefaults = [NSUserDefaults standardUserDefaults];
+    self.autoUpdateState = [fetchDefaults boolForKey:@"autoUpdateLocation"];
+    self.interval = [fetchDefaults doubleForKey:@"autoUpdateLocationInterval"];
+    [self updateIntervalDisplayUI];
+    if (self.autoUpdateState) {
+        NSLog(@"YES");
+    } else {
+        NSLog(@"NO");
+    }
     locationManager = [[CLLocationManager alloc] init];
 }
 
