@@ -13,14 +13,19 @@
 
 @interface TrackerViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *latitude;
-
+@property (weak, nonatomic) IBOutlet UILabel *updateIntervalDisplay;
 @property (weak, nonatomic) IBOutlet MKMapView *mapview;
 @property (weak, nonatomic) IBOutlet UILabel *longitude;
+@property BOOL autoUpdateState;
+@property double interval;
+@property (weak, nonatomic) IBOutlet UISwitch *autoSwitch;
+
 @end
 
 @implementation TrackerViewController {
     CLLocationManager *locationManager;
 }
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -28,6 +33,34 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void) updateIntervalDisplayUI {
+    if (self.autoUpdateState) {
+        self.updateIntervalDisplay.text = [NSString stringWithFormat:@"update every %1.0f minutes", self.interval];
+    } else {
+        self.updateIntervalDisplay.text = @"Auto Update Off";
+    }
+}
+
+
+
+- (IBAction)autoUpdateSwitch:(id)sender {
+    UISwitch *stepper = (UISwitch *) sender;
+    if ([stepper isOn]) {
+        self.autoUpdateState = YES;
+    } else {
+        self.autoUpdateState = NO;
+    }
+    [self updateIntervalDisplayUI];
+}
+
+
+- (IBAction)changeUpdateInterval:(id)sender {
+    UIStepper *stepper = (UIStepper *) sender;
+    self.interval = stepper.value;
+    [self updateIntervalDisplayUI];
+    NSLog(@"%1.0f", stepper.value);
 }
 
 - (void)viewDidLoad
@@ -65,7 +98,7 @@
         self.longitude.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
         self.latitude.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
     }
-//    [BarnacleRouteFetcher updateLocation: currentLocation];
+    [BarnacleRouteFetcher updateLocation: currentLocation];
     //
     MKCoordinateRegion region;
     MKCoordinateSpan span;
