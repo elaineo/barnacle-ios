@@ -19,6 +19,7 @@
 @property BOOL autoUpdateState;
 @property double interval;
 @property (weak, nonatomic) IBOutlet UISwitch *autoSwitch;
+@property BOOL defferingUpdates;
 @property (weak, nonatomic) IBOutlet UIStepper *intervalIncrementer;
 
 @end
@@ -94,10 +95,20 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)updateLocation:(id)sender {
+    NSLog(@"button press to update location");
+    if ([CLLocationManager deferredLocationUpdatesAvailable]) {
+        NSLog(@"deffered okay");
+    } else {
+        NSLog(@"deffered bad");
+    }
     locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
-    [locationManager startUpdatingLocation];
+    locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;   locationManager.activityType = CLActivityTypeAutomotiveNavigation;
+//    [locationManager startUpdatingLocation];
+    
+    NSTimeInterval time = 10.0;
+    [locationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:time];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -106,6 +117,16 @@
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [errorAlert show];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    if (!self.defferingUpdates) {
+        self.defferingUpdates = YES;
+    }
+    NSLog(@"update locations");
+    NSTimeInterval time = 10.0;
+    [locationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:time];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation

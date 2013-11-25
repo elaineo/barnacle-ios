@@ -61,7 +61,11 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:&error];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSLog(jsonString);
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/track/updateloc"]];
+    NSString* targetUrl = @"http://www.gobarnacle.com/track/updateloc";
+    // TODO fix me after debug
+    targetUrl = @"http://warrenmar.appspot.com/warren/test";
+    NSLog(@"updategeo");
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: targetUrl]];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:jsonData];
 //    [request setValue:@"application/json" forKey:@"Accept"];
