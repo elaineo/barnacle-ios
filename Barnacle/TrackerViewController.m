@@ -116,11 +116,10 @@
     }
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;// kCLLocationAccuracyThreeKilometers;
-    locationManager.activityType = CLActivityTypeAutomotiveNavigation;
+//    locationManager.activityType = CLActivityTypeAutomotiveNavigation;
     [locationManager startUpdatingLocation];
     
     NSTimeInterval time = 10.0;
-    [locationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:time];
     locationManager.pausesLocationUpdatesAutomatically = NO;
 }
 
@@ -135,13 +134,15 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation* location = (CLLocation*)[locations lastObject];
-    NSLog([location description]);
     NSLog(@"update locations");
-    [BarnacleRouteFetcher updateLocation: location];
+//    [BarnacleRouteFetcher updateLocation: location];
     if (!self.defferingUpdates) {
+            NSLog([location description]);
             NSTimeInterval time = 10.0;
         [locationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:time];
         self.defferingUpdates = YES;
+    } else {
+        NSLog(@"deffering");
     }
 }
 
@@ -156,6 +157,7 @@
 - (void) locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error
 {
     self.defferingUpdates = NO;
+    NSLog(@"finish differ");
     switch ([error code]) {
         case kCLErrorLocationUnknown:
             NSLog(@"unknonw");
