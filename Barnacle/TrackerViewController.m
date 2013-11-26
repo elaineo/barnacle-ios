@@ -85,7 +85,7 @@
     self.interval = [fetchDefaults doubleForKey:@"autoUpdateLocationInterval"];
     [self.intervalIncrementer setValue:self.interval];
     [self updateIntervalDisplayUI];
-
+    self.defferingUpdates = NO;
     //
     locationManager = [[CLLocationManager alloc] init];
 }
@@ -103,12 +103,25 @@
     } else {
         NSLog(@"deffered bad");
     }
+    
+    if ([[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusAvailable) {
+        
+        NSLog(@"Background updates are available for the app.");
+    }else if([[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusDenied)
+    {
+        NSLog(@"The user explicitly disabled background behavior for this app or for the whole system.");
+    }else if([[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusRestricted)
+    {
+        NSLog(@"Background updates are unavailable and the user cannot enable them again. For example, this status can occur when parental controls are in effect for the current user.");
+    }
     locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;   locationManager.activityType = CLActivityTypeAutomotiveNavigation;
-//    [locationManager startUpdatingLocation];
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;// kCLLocationAccuracyThreeKilometers;
+    locationManager.activityType = CLActivityTypeAutomotiveNavigation;
+    [locationManager startUpdatingLocation];
     
     NSTimeInterval time = 10.0;
     [locationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:time];
+    locationManager.pausesLocationUpdatesAutomatically = NO;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -121,33 +134,63 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+    CLLocation* location = (CLLocation*)[locations lastObject];
+    NSLog([location description]);
+    NSLog(@"update locations");
+    [BarnacleRouteFetcher updateLocation: location];
     if (!self.defferingUpdates) {
+            NSTimeInterval time = 10.0;
+        [locationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:time];
         self.defferingUpdates = YES;
     }
-    NSLog(@"update locations");
-    NSTimeInterval time = 10.0;
-    [locationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:time];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+- (void)locationManagerDidPauseLocationUpdates{
+    NSLog(@"pause");
+}
+- (void) locationManagerDidResumeLocationUpdates{
+    NSLog(@"resume");
+}
+
+
+- (void) locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error
 {
-    NSLog(@"didUpdateToLocation: %@", newLocation);
-    CLLocation *currentLocation = newLocation;
-    
-    if (currentLocation != nil) {
-        self.longitude.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
-        self.latitude.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
+    self.defferingUpdates = NO;
+    switch ([error code]) {
+        case kCLErrorLocationUnknown:
+            NSLog(@"unknonw");
+            break;
+        case kCLErrorDenied:
+            NSLog(@"denied");
+            break;
+        case kCLErrorDeferredCanceled:
+            NSLog(@"cancel");
+            break;
+        default:
+            NSLog(@"default error");
+            break;
     }
-    [BarnacleRouteFetcher updateLocation: currentLocation];
-    //
-    MKCoordinateRegion region;
-    MKCoordinateSpan span;
-    span.latitudeDelta = 0.25;
-    span.longitudeDelta = 0.25;
-
-    region.span = span;
-    region.center = currentLocation.coordinate;
-    [[self mapview] setRegion:region animated:YES];
 }
+
+//- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+//{
+//    NSLog(@"didUpdateToLocation: %@", newLocation);
+//    CLLocation *currentLocation = newLocation;
+//    
+//    if (currentLocation != nil) {
+//        self.longitude.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+//        self.latitude.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
+//    }
+//    [BarnacleRouteFetcher updateLocation: currentLocation];
+//    //
+//    MKCoordinateRegion region;
+//    MKCoordinateSpan span;
+//    span.latitudeDelta = 0.25;
+//    span.longitudeDelta = 0.25;
+//
+//    region.span = span;
+//    region.center = currentLocation.coordinate;
+//    [[self mapview] setRegion:region animated:YES];
+//}
 
 @end
