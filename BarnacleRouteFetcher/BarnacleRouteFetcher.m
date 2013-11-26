@@ -19,7 +19,8 @@
     NSError *error;
      NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
 //    NSString *data = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
-    NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData: urlData options:NSJSONReadingMutableContainers error:&error];    
+    NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData: urlData options:NSJSONReadingMutableContainers error:&error];
+//    NSLog([JSON description]);
     return [JSON valueForKeyPath:@"routes"];
 }
 
@@ -53,8 +54,8 @@
 + (BOOL) updateLocation: (CLLocation*) location {
     double lat = location.coordinate.latitude;
     double lon = location.coordinate.longitude;
-    NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithDouble:lat], [NSNumber numberWithDouble:lon], nil];
-    NSArray *keys = [NSArray arrayWithObjects: @"lat", @"lon", nil];
+    NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithDouble:lat], [NSNumber numberWithDouble:lon], @"location string", @"message placeholder", nil];
+    NSArray *keys = [NSArray arrayWithObjects: @"lat", @"lon", @"locstr", @"msg"];
     NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects
                                                          forKeys:keys ];
     NSError *error;
@@ -63,7 +64,7 @@
     NSLog(jsonString);
     NSString* targetUrl = @"http://www.gobarnacle.com/track/updateloc";
     // TODO fix me after debug
-    targetUrl = @"http://warrenmar.appspot.com/warren/test";
+//    targetUrl = @"http://warrenmar.appspot.com/warren/test";
     NSLog(@"updategeo");
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: targetUrl]];
     [request setHTTPMethod:@"POST"];

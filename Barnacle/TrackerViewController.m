@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *autoSwitch;
 @property BOOL defferingUpdates;
 @property (weak, nonatomic) IBOutlet UIStepper *intervalIncrementer;
-
+@property NSDate* lastUpdate;
 @end
 
 @implementation TrackerViewController {
@@ -86,6 +86,7 @@
     [self.intervalIncrementer setValue:self.interval];
     [self updateIntervalDisplayUI];
     self.defferingUpdates = NO;
+    self.lastUpdate = [[NSDate alloc] initWithTimeIntervalSince1970: 0];
     //
     locationManager = [[CLLocationManager alloc] init];
 }
@@ -117,8 +118,8 @@
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;// kCLLocationAccuracyThreeKilometers;
 //    locationManager.activityType = CLActivityTypeAutomotiveNavigation;
-    [locationManager startUpdatingLocation];
-//    [locationManager startMonitoringSignificantLocationChanges];
+//    [locationManager startUpdatingLocation];
+    [locationManager startMonitoringSignificantLocationChanges];
     
     NSTimeInterval time = 10.0;
     locationManager.pausesLocationUpdatesAutomatically = NO;
@@ -135,7 +136,14 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation* location = (CLLocation*)[locations lastObject];
-    NSLog(@"update locations");
+    if ([[NSDate date] timeIntervalSinceDate:self.lastUpdate] > 5*60.0) {
+        NSLog([location description]);
+        NSLog(@"update locations");
+        self.lastUpdate = [NSDate date];
+        if (location) {
+            [BarnacleRouteFetcher updateLocation: location];
+        }
+    }
 //    [BarnacleRouteFetcher updateLocation: location];
 //    if (!self.defferingUpdates) {
 //            NSLog([location description]);
