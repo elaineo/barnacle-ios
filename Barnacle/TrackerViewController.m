@@ -118,6 +118,7 @@
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;// kCLLocationAccuracyThreeKilometers;
 //    locationManager.activityType = CLActivityTypeAutomotiveNavigation;
     [locationManager startUpdatingLocation];
+//    [locationManager startMonitoringSignificantLocationChanges];
     
     NSTimeInterval time = 10.0;
     locationManager.pausesLocationUpdatesAutomatically = NO;
@@ -136,14 +137,14 @@
     CLLocation* location = (CLLocation*)[locations lastObject];
     NSLog(@"update locations");
 //    [BarnacleRouteFetcher updateLocation: location];
-    if (!self.defferingUpdates) {
-            NSLog([location description]);
-            NSTimeInterval time = 10.0;
-        [locationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:time];
-        self.defferingUpdates = YES;
-    } else {
-        NSLog(@"deffering");
-    }
+//    if (!self.defferingUpdates) {
+//            NSLog([location description]);
+//            NSTimeInterval time = 10.0;
+//        [locationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:time];
+//        self.defferingUpdates = YES;
+//    } else {
+//        NSLog(@"deffering");
+//    }
 }
 
 - (void)locationManagerDidPauseLocationUpdates{
