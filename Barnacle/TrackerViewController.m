@@ -118,7 +118,7 @@
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;// kCLLocationAccuracyThreeKilometers;
 //    locationManager.activityType = CLActivityTypeAutomotiveNavigation;
-//    [locationManager startUpdatingLocation];
+ //   [locationManager startUpdatingLocation];
     [locationManager startMonitoringSignificantLocationChanges];
     
     NSTimeInterval time = 10.0;

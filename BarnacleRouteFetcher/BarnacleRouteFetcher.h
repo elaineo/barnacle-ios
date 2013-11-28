@@ -21,5 +21,6 @@
 
 + (NSArray *)latestRoutes;
 + (BOOL) switchStatus:(NSString*) routeKey;
++ (BOOL) deleteRoute:(NSString*) routeKey;
 + (BOOL) updateLocation: (CLLocation*) location;
 @end

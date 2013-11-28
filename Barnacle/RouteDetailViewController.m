@@ -30,7 +30,8 @@
 }
 
 - (void) updateUI{
-    self.title = self.route.routekey;
+//    self.title = self.route.routekey;
+    self.title = @"Details";
     self.locstart.text = self.route.locstart;
     self.locend.text = self.route.locend;
     self.statusValue.text =  [NSString stringWithFormat:@"%d", self.route.statusint];
@@ -76,8 +77,40 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:nil];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(promptDelete)];
 }
+
+- (void)promptDelete {
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                         destructiveButtonTitle:@"Delete"
+                                              otherButtonTitles:nil];
+    [sheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSLog(@"%i", buttonIndex);
+    switch(buttonIndex){
+        case 0:{
+            NSLog(@"delete %@", self.route.routekey);
+            dispatch_queue_t fetchQ = dispatch_queue_create("Status Update", NULL);
+            dispatch_async(fetchQ, ^{
+                [BarnacleRouteFetcher deleteRoute: self.route.routekey ];
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+                            });
+            });
+            break;
+        }
+        case 1:
+            NSLog(@"cancel");
+            break;
+        default:
+            break;
+    }
+}
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

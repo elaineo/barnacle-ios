@@ -25,7 +25,24 @@
 }
 
 + (BOOL) deleteRoute:(NSString*) routeKey {
+    NSArray *objects = [NSArray arrayWithObjects: routeKey, [NSNumber numberWithInt:0], nil];
+    NSArray *keys = [NSArray arrayWithObjects: @"routekey", @"status", nil];
+    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects
+                                                         forKeys:keys ];
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/track/status"]];
+    
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:jsonData];
+    NSURLResponse *response;
+    NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
     return YES;
+
 }
 
 + (BOOL) switchStatus:(NSString*) routeKey {
