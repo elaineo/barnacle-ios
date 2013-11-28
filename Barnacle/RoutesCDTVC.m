@@ -10,6 +10,7 @@
 #import "Route.h"
 #import "Route+Barnacle.h"
 #import "BarnacleRouteFetcher.h"
+#import "RouteCreationViewController.h"
 
 @interface RoutesCDTVC ()
 @end
@@ -23,7 +24,7 @@
 	// Do any additional setup after loading the view.
     [super viewDidLoad];
     self.title = @"Routes";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:nil];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(pushRouteCreationVC)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -32,6 +33,11 @@
     NSLog(@"will appear");
     if (!self.managedObjectContext) [self useDemoDocument];
     
+}
+
+- (void)pushRouteCreationVC {
+    NSLog(@"create");
+    [self performSegueWithIdentifier:@"pushCreateRoute" sender:self];
 }
 
 - (void)useDemoDocument
