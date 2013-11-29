@@ -144,15 +144,15 @@
             </objects>
             <point key="canvasLocation" x="1230" y="115"/>
         </scene>
-        <!--View Controller-->
+        <!--Route Creation Destination View Controller-->
         <scene sceneID="qQ9-OG-U6L">
             <objects>
-                <viewController id="uE9-he-YCz" sceneMemberID="viewController">
+                <viewController id="uE9-he-YCz" customClass="RouteCreationDestinationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="txd-t9-mc3"/>
                         <viewControllerLayoutGuide type="bottom" id="OBx-1U-RmB"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ZM7-XH-vYs" customClass="RouteCreationDesinationViewController">
+                    <view key="view" contentMode="scaleToFill" id="ZM7-XH-vYs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -174,10 +174,10 @@
             </objects>
             <point key="canvasLocation" x="1682" y="115"/>
         </scene>
-        <!--View Controller-->
+        <!--Route Creation Date View Controller-->
         <scene sceneID="yKj-XT-CVe">
             <objects>
-                <viewController id="5F9-bH-OU2" sceneMemberID="viewController">
+                <viewController id="5F9-bH-OU2" customClass="RouteCreationDateViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6De-Fj-OcI"/>
                         <viewControllerLayoutGuide type="bottom" id="fis-oE-Btk"/>
