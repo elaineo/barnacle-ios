@@ -172,6 +172,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="G7Z-gd-gpz"/>
                     <connections>
+                        <outlet property="mapView" destination="5Ql-kx-veq" id="djk-R3-Wv4"/>
                         <segue destination="5F9-bH-OU2" kind="push" identifier="pushSelectDate" id="GSj-vj-gmF"/>
                     </connections>
                 </viewController>

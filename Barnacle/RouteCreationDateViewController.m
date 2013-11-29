@@ -14,6 +14,9 @@
 
 @implementation RouteCreationDateViewController
 
+@synthesize origin;
+@synthesize destination;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -28,6 +31,8 @@
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:nil];
 	// Do any additional setup after loading the view.
+    NSLog(@"%f", origin.latitude);
+    NSLog(@"%f", destination.latitude);
 }
 
 - (void)didReceiveMemoryWarning
