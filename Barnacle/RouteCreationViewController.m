@@ -7,11 +7,12 @@
 //
 
 #import "RouteCreationViewController.h"
+#import "RouteCreationDestinationViewController.h"
 #import <MapKit/MapKit.h>
 
 @interface RouteCreationViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-
+@property CLLocationCoordinate2D origin;
 @end
 
 @implementation RouteCreationViewController
@@ -46,6 +47,7 @@
 {
     CGPoint pointTappedInMapView = [recognizer locationInView:_mapView];
     CLLocationCoordinate2D geoCoordinatesTapped = [_mapView convertPoint:pointTappedInMapView toCoordinateFromView:_mapView];
+    self.origin = geoCoordinatesTapped;
     NSLog(@"%f", geoCoordinatesTapped.latitude);
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
@@ -68,6 +70,21 @@
             break;
     }
 }
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+        NSLog(@"prepare for segue");
+ if ([segue.identifier isEqualToString:@"pushSelectDestination"]) {
+           if ([segue.destinationViewController respondsToSelector:@selector(setOrigin:)]) {
+                NSLog(@"preform");
+                 RouteCreationDestinationViewController *vc = [segue destinationViewController];
+                vc.origin = self.origin;
+            }
+      }
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {

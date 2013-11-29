@@ -7,12 +7,21 @@
 //
 
 #import "RouteCreationDestinationViewController.h"
+#import <MapKit/MapKit.h>
 
 @interface RouteCreationDestinationViewController ()
+//@property CLLocationCoordinate2D origin;
 
 @end
 
 @implementation RouteCreationDestinationViewController
+@synthesize origin = _origin;
+
+- (void)setOrigin:(CLLocationCoordinate2D)origin
+{
+    _origin = origin;
+    NSLog(@"set origin");
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,9 +37,9 @@
     [super viewDidLoad];
     self.title = @"Destination";
 	// Do any additional setup after loading the view.
-    self.navigationItem.rightBarButtonItem = //[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:nil];
+    self.navigationItem.rightBarButtonItem =
     [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(pushSelectDate)];
-
+    NSLog(@"%f", self.origin.latitude);
 }
 
 - (void)pushSelectDate
