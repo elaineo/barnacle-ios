@@ -7,8 +7,10 @@
 //
 
 #import "RouteCreationViewController.h"
+#import <MapKit/MapKit.h>
 
 @interface RouteCreationViewController ()
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @end
 
@@ -30,10 +32,41 @@
 	// Do any additional setup after loading the view.
         self.navigationItem.rightBarButtonItem = //[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:nil];
     [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(pushDestination)];
+    
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapViewTapped:)];
+    [self.mapView addGestureRecognizer:tapRecognizer];
 }
 
 - (void)pushDestination{
         [self performSegueWithIdentifier:@"pushSelectDestination" sender:self];
+}
+
+// Handle touch event
+- (void)mapViewTapped:(UITapGestureRecognizer *)recognizer
+{
+    CGPoint pointTappedInMapView = [recognizer locationInView:_mapView];
+    CLLocationCoordinate2D geoCoordinatesTapped = [_mapView convertPoint:pointTappedInMapView toCoordinateFromView:_mapView];
+    NSLog(@"%f", geoCoordinatesTapped.latitude);
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan:
+            /* equivalent to touchesBegan:withEvent: */
+            break;
+            
+        case UIGestureRecognizerStateChanged:
+            /* equivalent to touchesMoved:withEvent: */
+            break;
+            
+        case UIGestureRecognizerStateEnded:
+            /* equivalent to touchesEnded:withEvent: */
+            break;
+            
+        case UIGestureRecognizerStateCancelled:
+            /* equivalent to touchesCancelled:withEvent: */
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning
