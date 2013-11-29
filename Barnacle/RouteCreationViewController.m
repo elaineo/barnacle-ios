@@ -26,8 +26,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Create";
+    self.title = @"Origin";
 	// Do any additional setup after loading the view.
+        self.navigationItem.rightBarButtonItem = //[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:nil];
+    [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(pushDestination)];
+}
+
+- (void)pushDestination{
+        [self performSegueWithIdentifier:@"pushSelectDestination" sender:self];
 }
 
 - (void)didReceiveMemoryWarning
