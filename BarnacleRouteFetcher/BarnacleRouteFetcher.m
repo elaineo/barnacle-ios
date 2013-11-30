@@ -87,7 +87,10 @@
     NSLog([origin description]);
     NSLog([destination description]);
     
-
+    
+    NSString* locstart = [[origin.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@" "];
+    NSString* locend = [[destination.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@" "];
+    
     
     NSArray *objects = [NSArray arrayWithObjects:
                         [NSNumber numberWithInteger:0],
@@ -95,8 +98,8 @@
                         [NSNumber numberWithFloat:origin.location.coordinate.longitude],
                                [NSNumber numberWithFloat:destination.location.coordinate.latitude],
                                [NSNumber numberWithFloat:destination.location.coordinate.longitude],
-                        @"a",
-                        @"b",
+                        locstart,
+                        locend,
                         stringFromDate,
                         nil];
     NSArray *keys = [NSArray arrayWithObjects: @"tzoffset",
