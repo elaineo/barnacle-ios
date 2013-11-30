@@ -7,6 +7,7 @@
 //
 
 #import "RouteCreationDateViewController.h"
+#import "BarnacleRouteFetcher.h"
 
 @interface RouteCreationDateViewController ()
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
@@ -30,11 +31,36 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:nil];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(promptCreate)];
 	// Do any additional setup after loading the view.
     NSLog([origin description]);
     NSLog([destination description]);
 }
+
+- (void)promptCreate {
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                         destructiveButtonTitle:@"Create"
+                                              otherButtonTitles:nil];
+    [sheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSLog(@"action sehet");
+    switch(buttonIndex){
+        case 0:{
+            [BarnacleRouteFetcher createRouteFrom:self.origin to:self.destination by:self.datePicker.date];
+            break;
+        }
+        case 1:
+            NSLog(@"cancel");
+            break;
+        default:
+            break;
+    }
+}
+
 
 - (void)didReceiveMemoryWarning
 {

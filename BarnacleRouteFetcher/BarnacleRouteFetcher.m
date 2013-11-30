@@ -68,7 +68,7 @@
 
 }
 
-+ (BOOL) createRouteFrom:(CLLocation*) origin to: (CLLocation*) destination{
++ (BOOL) createRouteFrom:(CLPlacemark*) origin to: (CLPlacemark*) destination by: (NSDate*) date {
 //    { "tzoffset" : destTZ,
 //        "startlat" : startLat,
 //        "startlon" : startLon,
@@ -77,13 +77,54 @@
 //        "locstart" : //get the string inside gray box #1,
 //        "locend"   : //get the string inside gray box #2,
 //        "delivend" : //get calendar date in the form of "MM/DD/YYYYY" }
-    NSArray *objects = [NSArray arrayWithObjects: [NSNumber numberWithFloat:origin.coordinate.latitude],
-                        [NSNumber numberWithFloat:origin.coordinate.longitude],
+    NSLog([date description]);
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM/dd/yyyy"];
+    
+    NSString *stringFromDate = [formatter stringFromDate:date];
+    NSLog(stringFromDate);
+    NSLog([origin description]);
+    NSLog([destination description]);
+    
+
+    
+    NSArray *objects = [NSArray arrayWithObjects:
+                        [NSNumber numberWithInteger:0],
+                        [NSNumber numberWithFloat:origin.location.coordinate.latitude],
+                        [NSNumber numberWithFloat:origin.location.coordinate.longitude],
+                               [NSNumber numberWithFloat:destination.location.coordinate.latitude],
+                               [NSNumber numberWithFloat:destination.location.coordinate.longitude],
+                        @"a",
+                        @"b",
+                        stringFromDate,
                         nil];
-    NSArray *keys = [NSArray arrayWithObjects: @"startlat", @"startlon", nil];
+    NSArray *keys = [NSArray arrayWithObjects: @"tzoffset",
+                     @"startlat",
+                     @"startlon",
+                     @"destlat",
+                     @"destlon",
+                     @"locstart",
+                     @"locend",
+                     @"delivend",
+                     nil];
     NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects
                                                          forKeys:keys ];
 
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/track/create"]];
+    
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:jsonData];
+    NSURLResponse *response;
+    NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
+
+    
     return YES;
 }
 

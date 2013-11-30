@@ -23,4 +23,5 @@
 + (BOOL) switchStatus:(NSString*) routeKey;
 + (BOOL) deleteRoute:(NSString*) routeKey;
 + (BOOL) updateLocation: (CLLocation*) location;
++ (BOOL) createRouteFrom:(CLLocation*) origin to: (CLLocation*) destination by: (NSDate*) date;
 @end
