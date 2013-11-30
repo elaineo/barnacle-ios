@@ -165,8 +165,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Destination" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Oi-L2-0Y5">
-                                <rect key="frame" x="106" y="437" width="87" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Destination" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="7Oi-L2-0Y5">
+                                <rect key="frame" x="0.0" y="373" width="320" height="105"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -180,6 +180,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="G7Z-gd-gpz"/>
                     <connections>
+                        <outlet property="locationDescription" destination="7Oi-L2-0Y5" id="ieV-Mo-Flb"/>
                         <outlet property="mapView" destination="5Ql-kx-veq" id="djk-R3-Wv4"/>
                         <segue destination="5F9-bH-OU2" kind="push" identifier="pushSelectDate" id="GSj-vj-gmF"/>
                     </connections>

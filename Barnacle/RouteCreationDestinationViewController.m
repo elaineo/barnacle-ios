@@ -12,6 +12,7 @@
 
 @interface RouteCreationDestinationViewController ()
 @property CLLocationCoordinate2D destination;
+@property (weak, nonatomic) IBOutlet UILabel *locationDescription;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @end
 
@@ -86,6 +87,24 @@
         default:
             break;
     }
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    
+    
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.destination.latitude longitude:self.destination.longitude];
+    
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error){
+        }
+        CLPlacemark *placemark = [placemarks lastObject];
+        
+        NSDictionary *address = placemark.addressDictionary;
+        NSString *city = [address valueForKey:@"City"];
+        NSArray *formattedAddress = [address valueForKey:@"FormattedAddressLines"];
+        NSLog([address description]);
+        NSLog([formattedAddress description]);
+        [placemark.addressDictionary description];
+        self.locationDescription.text = [formattedAddress componentsJoinedByString:@"\n"];;
+    }];
 }
 
 
