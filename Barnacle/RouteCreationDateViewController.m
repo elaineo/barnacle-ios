@@ -31,10 +31,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(promptCreate)];
 	// Do any additional setup after loading the view.
-    NSLog([origin description]);
-    NSLog([destination description]);
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(promptCreate)];
+    [self.datePicker setMinimumDate:[[NSDate alloc] init]];
 }
 
 - (void)promptCreate {
@@ -51,11 +50,19 @@
     switch(buttonIndex){
         case 0:{
             [BarnacleRouteFetcher createRouteFrom:self.origin to:self.destination by:self.datePicker.date];
+            NSArray *vcs = self.navigationController.viewControllers;
+            UIViewController *vc = [vcs objectAtIndex: 1];
+            [self.navigationController popToViewController:vc animated:YES];
+
             break;
         }
         case 1:
-            NSLog(@"cancel");
+        {
+            NSArray *vcs = self.navigationController.viewControllers;
+            UIViewController *vc = [vcs objectAtIndex: 1];
+            [self.navigationController popToViewController:vc animated:YES];
             break;
+        }
         default:
             break;
     }

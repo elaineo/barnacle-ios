@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-@interface RouteCreationDateViewController : UIViewController
+@interface RouteCreationDateViewController : UIViewController<UIActionSheetDelegate>
 @property CLPlacemark* origin;
 @property CLPlacemark* destination;
 @end

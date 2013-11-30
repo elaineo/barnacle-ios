@@ -90,7 +90,6 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSLog(@"%i", buttonIndex);
     switch(buttonIndex){
         case 0:{
             NSLog(@"delete %@", self.route.routekey);

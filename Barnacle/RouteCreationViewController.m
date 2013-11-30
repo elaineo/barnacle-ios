@@ -79,9 +79,7 @@
         CLPlacemark *placemark = [placemarks lastObject];
         self.origin = placemark;
         NSDictionary *address = placemark.addressDictionary;
-        NSString *city = [address valueForKey:@"City"];
         NSArray *formattedAddress = [address valueForKey:@"FormattedAddressLines"];
-        [placemark.addressDictionary description];
         self.locationDescription.text = [formattedAddress componentsJoinedByString:@"\n"];;
     }];
 }

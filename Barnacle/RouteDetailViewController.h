@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Route.h"
 
-@interface RouteDetailViewController : UIViewController
+@interface RouteDetailViewController : UIViewController<UIActionSheetDelegate>
 
 @property (nonatomic, strong) Route *route;
 
