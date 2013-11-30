@@ -32,6 +32,9 @@
                                 <rect key="frame" x="101" y="234" width="118" height="100"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="pmE-2i-W1a" id="mSg-9r-aAa"/>
+                                </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0y5-1a-5bP">
                                 <rect key="frame" x="112" y="425" width="96" height="30"/>
@@ -47,6 +50,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Vzr-uc-Alg"/>
+                    <connections>
+                        <outlet property="manageRouteButton" destination="njm-Q8-sDc" id="8dI-ky-8Z9"/>
+                        <outlet property="trackDeliveryButton" destination="0y5-1a-5bP" id="MH4-6E-feD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XSh-pE-kaN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -11,6 +11,8 @@
 
 @interface FacebookLoginViewController ()
 @property (weak, nonatomic) IBOutlet FBLoginView *loginView;
+@property (weak, nonatomic) IBOutlet UIButton *manageRouteButton;
+@property (weak, nonatomic) IBOutlet UIButton *trackDeliveryButton;
 
 @end
 
@@ -20,8 +22,47 @@
 {
     [super viewDidLoad];
     self.loginView.readPermissions = @[@"basic_info", @"email", @"user_location"];
-	// Do any additional setup after loading the view.
+// Do any additional setup after loading the view.
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self updateUI];
+    
+}
+
+-(void) updateUI {
+    if (FBSession.activeSession.state == FBSessionStateOpen) {
+        [self.manageRouteButton setHidden:NO];
+        [self.trackDeliveryButton setHidden:NO];
+    } else {
+        [self.manageRouteButton setHidden:YES];
+        [self.trackDeliveryButton setHidden:YES];
+    }
+}
+
+- (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
+    NSLog(@"error");
+}
+
+- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user {
+    NSLog(@"info");
+}
+
+
+- (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
+    NSLog(@"loginViewShowingLoggedInUser");
+    [self.manageRouteButton setHidden:NO];
+    [self.trackDeliveryButton setHidden:NO];
+
+}
+
+- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
+        NSLog(@"loginViewShowingLoggedOutUser");
+    [self.manageRouteButton setHidden:YES];
+    [self.trackDeliveryButton setHidden:YES];
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
