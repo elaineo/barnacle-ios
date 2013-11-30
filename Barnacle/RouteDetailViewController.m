@@ -9,6 +9,7 @@
 #import "RouteDetailViewController.h"
 #import "Route.h"
 #import "BarnacleRouteFetcher.h"
+#import "RoutesCDTVC.h"
 
 @interface RouteDetailViewController ()
 
@@ -98,6 +99,12 @@
                 [BarnacleRouteFetcher deleteRoute: self.route.routekey ];
                             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
+                                NSArray *vcs = self.navigationController.viewControllers;
+                                UIViewController *vc = [vcs objectAtIndex: 1];
+                                RoutesCDTVC * rcv = (RoutesCDTVC *)vc;
+                                [rcv refresh];
+
+                                
                             });
             });
             break;

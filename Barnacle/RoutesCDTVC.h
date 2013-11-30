@@ -9,7 +9,6 @@
 #import "CoreDataTableViewController.h"
 
 @interface RoutesCDTVC : CoreDataTableViewController
-
+- (IBAction)refresh;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 @end

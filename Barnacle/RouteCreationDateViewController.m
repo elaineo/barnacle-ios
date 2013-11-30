@@ -8,7 +8,7 @@
 
 #import "RouteCreationDateViewController.h"
 #import "BarnacleRouteFetcher.h"
-
+#import "RoutesCDTVC.h"
 @interface RouteCreationDateViewController ()
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
@@ -53,7 +53,8 @@
             NSArray *vcs = self.navigationController.viewControllers;
             UIViewController *vc = [vcs objectAtIndex: 1];
             [self.navigationController popToViewController:vc animated:YES];
-
+            RoutesCDTVC * rcv = (RoutesCDTVC *)vc;
+            [rcv refresh];
             break;
         }
         case 1:

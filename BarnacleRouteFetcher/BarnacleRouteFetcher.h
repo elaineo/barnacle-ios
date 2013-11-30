@@ -22,6 +22,6 @@
 + (NSArray *)latestRoutes;
 + (BOOL) switchStatus:(NSString*) routeKey;
 + (BOOL) deleteRoute:(NSString*) routeKey;
-+ (BOOL) updateLocation: (CLLocation*) location locationString: (NSString*) locstr msg: (NSString*) msg 
++ (BOOL) updateLocation: (CLLocation*) location locationString: (NSString*) locstr msg: (NSString*) msg; 
 + (BOOL) createRouteFrom:(CLPlacemark*) origin to: (CLPlacemark*) destination by: (NSDate*) date;
 @end
