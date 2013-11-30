@@ -127,6 +127,10 @@
              [request setHTTPMethod:@"POST"];
              [request setHTTPBody:postData];
              NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+             if (!connection) {
+                 NSLog(@"error");
+             }
+//             NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 
 //
 //             

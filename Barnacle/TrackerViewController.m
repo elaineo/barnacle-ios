@@ -116,13 +116,9 @@
         NSLog(@"Background updates are unavailable and the user cannot enable them again. For example, this status can occur when parental controls are in effect for the current user.");
     }
     locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;// kCLLocationAccuracyThreeKilometers;
-//    locationManager.activityType = CLActivityTypeAutomotiveNavigation;
- //   [locationManager startUpdatingLocation];
+    locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+    locationManager.activityType = CLActivityTypeAutomotiveNavigation;
     [locationManager startMonitoringSignificantLocationChanges];
-    
-//    NSTimeInterval time = 10.0;
-    locationManager.pausesLocationUpdatesAutomatically = NO;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

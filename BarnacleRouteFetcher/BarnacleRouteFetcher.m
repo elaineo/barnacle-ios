@@ -47,8 +47,10 @@
                                                          forKeys:keys ];
     NSError *error;
     NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/status"] error:error];
-    NSLog([jsonResponse objectForKey:@"status"]);
-    return YES;
+    if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
+        return YES;
+    }
+    return NO;
 }
 
 
@@ -58,9 +60,11 @@
     NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects
                                                          forKeys:keys ];
     NSError *error;
-    NSDictionary *jsonReponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/status"] error:error];
-    
-    return YES;
+    NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/status"] error:error];
+    if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
+        return YES;
+    }
+    return NO;
 }
 
 + (BOOL) createRouteFrom:(CLPlacemark*) origin to: (CLPlacemark*) destination by: (NSDate*) date {
@@ -97,8 +101,11 @@
                                                          forKeys:keys ];
     
     NSError *error;
-    NSDictionary *jsonReponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/create"] error:error];
-    return YES;
+    NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/create"] error:error];
+    if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
+        return YES;
+    }
+    return NO;
 }
 
 + (BOOL) updateLocation: (CLLocation*) location {
@@ -110,7 +117,10 @@
                                                          forKeys:keys ];
     NSError *error;
     NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/updateloc"] error:error];
-    return YES;
+    if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
+        return YES;
+    }
+    return NO;
 }
 
 @end
