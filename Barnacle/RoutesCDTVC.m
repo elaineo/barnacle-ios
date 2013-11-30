@@ -11,6 +11,7 @@
 #import "Route+Barnacle.h"
 #import "BarnacleRouteFetcher.h"
 #import "RouteCreationViewController.h"
+#import "RouteDetailViewController.h"
 
 @interface RoutesCDTVC ()
 @end

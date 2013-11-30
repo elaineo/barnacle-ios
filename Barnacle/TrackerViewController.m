@@ -121,7 +121,7 @@
  //   [locationManager startUpdatingLocation];
     [locationManager startMonitoringSignificantLocationChanges];
     
-    NSTimeInterval time = 10.0;
+//    NSTimeInterval time = 10.0;
     locationManager.pausesLocationUpdatesAutomatically = NO;
 }
 
@@ -137,22 +137,11 @@
 {
     CLLocation* location = (CLLocation*)[locations lastObject];
     if ([[NSDate date] timeIntervalSinceDate:self.lastUpdate] > 5*60.0) {
-        NSLog([location description]);
-        NSLog(@"update locations");
         self.lastUpdate = [NSDate date];
         if (location) {
             [BarnacleRouteFetcher updateLocation: location];
         }
     }
-//    [BarnacleRouteFetcher updateLocation: location];
-//    if (!self.defferingUpdates) {
-//            NSLog([location description]);
-//            NSTimeInterval time = 10.0;
-//        [locationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:time];
-//        self.defferingUpdates = YES;
-//    } else {
-//        NSLog(@"deffering");
-//    }
 }
 
 - (void)locationManagerDidPauseLocationUpdates{
