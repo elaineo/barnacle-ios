@@ -135,7 +135,15 @@
     if ([[NSDate date] timeIntervalSinceDate:self.lastUpdate] > 5*60.0) {
         self.lastUpdate = [NSDate date];
         if (location) {
-            [BarnacleRouteFetcher updateLocation: location];
+            CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+            [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+                CLPlacemark *placemark = [placemarks lastObject];
+                NSDictionary *address = placemark.addressDictionary;
+                NSArray *formattedAddress = [address valueForKey:@"FormattedAddressLines"];
+                NSString *locstr = [formattedAddress componentsJoinedByString:@" "];
+                [BarnacleRouteFetcher updateLocation: location locationString:locstr msg:@""];
+            }];
+            
         }
     }
 }

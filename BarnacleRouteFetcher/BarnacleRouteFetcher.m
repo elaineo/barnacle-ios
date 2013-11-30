@@ -108,10 +108,15 @@
     return NO;
 }
 
-+ (BOOL) updateLocation: (CLLocation*) location {
+
++ (BOOL) updateLocation: (CLLocation*) location locationString: (NSString*) locstr msg: (NSString*) msg {
     double lat = location.coordinate.latitude;
     double lon = location.coordinate.longitude;
-    NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithDouble:lat], [NSNumber numberWithDouble:lon], @"location string", @"message placeholder", nil];
+    NSArray *objects = [NSArray arrayWithObjects:
+                        [NSNumber numberWithDouble:lat],
+                        [NSNumber numberWithDouble:lon],
+                        locstr,
+                        msg, nil];
     NSArray *keys = [NSArray arrayWithObjects: @"lat", @"lon", @"locstr", @"msg", nil];
     NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects
                                                          forKeys:keys ];
