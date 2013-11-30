@@ -132,8 +132,8 @@
                                 <rect key="frame" x="0.0" y="64" width="333" height="299"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </mapView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap To Select a Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L22-0S-yT4">
-                                <rect key="frame" x="66" y="371" width="188" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap To Select a Location" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="L22-0S-yT4">
+                                <rect key="frame" x="0.0" y="371" width="320" height="81"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -144,6 +144,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Dm4-6s-AaR"/>
                     <connections>
+                        <outlet property="locationDescription" destination="L22-0S-yT4" id="tsR-HS-hVw"/>
                         <outlet property="mapView" destination="re6-7M-5bN" id="gc5-3a-RLo"/>
                         <segue destination="uE9-he-YCz" kind="push" identifier="pushSelectDestination" id="Ec9-cD-c5v"/>
                     </connections>
