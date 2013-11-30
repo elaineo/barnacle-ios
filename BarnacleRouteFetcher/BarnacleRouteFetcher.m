@@ -68,6 +68,25 @@
 
 }
 
++ (BOOL) createRouteFrom:(CLLocation*) origin to: (CLLocation*) destination{
+//    { "tzoffset" : destTZ,
+//        "startlat" : startLat,
+//        "startlon" : startLon,
+//        "destlat"  : destLat,
+//        "destlon"  : destLon,
+//        "locstart" : //get the string inside gray box #1,
+//        "locend"   : //get the string inside gray box #2,
+//        "delivend" : //get calendar date in the form of "MM/DD/YYYYY" }
+    NSArray *objects = [NSArray arrayWithObjects: [NSNumber numberWithFloat:origin.coordinate.latitude],
+                        [NSNumber numberWithFloat:origin.coordinate.longitude],
+                        nil];
+    NSArray *keys = [NSArray arrayWithObjects: @"startlat", @"startlon", nil];
+    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects
+                                                         forKeys:keys ];
+
+    return YES;
+}
+
 + (BOOL) updateLocation: (CLLocation*) location {
     double lat = location.coordinate.latitude;
     double lon = location.coordinate.longitude;
@@ -96,5 +115,8 @@
 
     return YES;
 }
+
+
+
 
 @end

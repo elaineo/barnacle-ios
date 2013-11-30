@@ -9,6 +9,7 @@
 #import "RouteCreationDateViewController.h"
 
 @interface RouteCreationDateViewController ()
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
 @end
 
@@ -31,8 +32,8 @@
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:nil];
 	// Do any additional setup after loading the view.
-    NSLog(@"%f", origin.latitude);
-    NSLog(@"%f", destination.latitude);
+    NSLog([origin description]);
+    NSLog([destination description]);
 }
 
 - (void)didReceiveMemoryWarning

@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 @interface RouteCreationDateViewController : UIViewController
-@property CLLocationCoordinate2D origin;
-@property CLLocationCoordinate2D destination;
+@property CLPlacemark* origin;
+@property CLPlacemark* destination;
 @end

@@ -11,7 +11,7 @@
 #import "RouteCreationDateViewController.h"
 
 @interface RouteCreationDestinationViewController ()
-@property CLLocationCoordinate2D destination;
+@property CLPlacemark *destination;
 @property (weak, nonatomic) IBOutlet UILabel *locationDescription;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @end
@@ -50,11 +50,13 @@
     if ([segue.identifier isEqualToString:@"pushSelectDate"]) {
         if ([segue.destinationViewController respondsToSelector:@selector(setOrigin:)]) {
             RouteCreationDateViewController *vc = [segue destinationViewController];
-            vc.origin = self.origin;
+            [vc setOrigin: self.origin];
         }
         if ([segue.destinationViewController respondsToSelector:@selector(setDestination:)]) {
             RouteCreationDateViewController *vc = [segue destinationViewController];
-            vc.destination = self.destination;
+            [vc setDestination: self.destination];
+//            self.destination
+//            vc.destination =
         }
         
     }
@@ -65,8 +67,8 @@
 {
     CGPoint pointTappedInMapView = [recognizer locationInView:_mapView];
     CLLocationCoordinate2D geoCoordinatesTapped = [_mapView convertPoint:pointTappedInMapView toCoordinateFromView:_mapView];
-    self.destination = geoCoordinatesTapped;
-    NSLog(@"%f", geoCoordinatesTapped.latitude);
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:geoCoordinatesTapped.latitude longitude:geoCoordinatesTapped.longitude];
+
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
             /* equivalent to touchesBegan:withEvent: */
@@ -87,21 +89,15 @@
         default:
             break;
     }
+    // Geocode
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
-    
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.destination.latitude longitude:self.destination.longitude];
-    
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error){
         }
         CLPlacemark *placemark = [placemarks lastObject];
-        
+        self.destination = placemark;
         NSDictionary *address = placemark.addressDictionary;
-        NSString *city = [address valueForKey:@"City"];
         NSArray *formattedAddress = [address valueForKey:@"FormattedAddressLines"];
-        NSLog([address description]);
-        NSLog([formattedAddress description]);
         [placemark.addressDictionary description];
         self.locationDescription.text = [formattedAddress componentsJoinedByString:@"\n"];;
     }];

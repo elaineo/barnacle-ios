@@ -243,6 +243,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="OXX-fO-SNG"/>
+                    <connections>
+                        <outlet property="datePicker" destination="bLe-Ft-zf2" id="fhD-lc-qwO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aA6-li-z6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -13,7 +13,7 @@
 @interface RouteCreationViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UILabel *locationDescription;
-@property CLLocationCoordinate2D origin;
+@property CLPlacemark* origin;
 @end
 
 @implementation RouteCreationViewController
@@ -48,8 +48,6 @@
 {
     CGPoint pointTappedInMapView = [recognizer locationInView:_mapView];
     CLLocationCoordinate2D geoCoordinatesTapped = [_mapView convertPoint:pointTappedInMapView toCoordinateFromView:_mapView];
-    self.origin = geoCoordinatesTapped;
-    NSLog(@"%f", geoCoordinatesTapped.latitude);
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
             /* equivalent to touchesBegan:withEvent: */
@@ -70,23 +68,19 @@
         default:
             break;
     }
-    
+    CLLocation* location = [[CLLocation alloc] initWithLatitude:geoCoordinatesTapped.latitude longitude:geoCoordinatesTapped.longitude];
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     
-    
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.origin.latitude longitude:self.origin.longitude];
-    
+
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error){
         }
         CLPlacemark *placemark = [placemarks lastObject];
-        
+        self.origin = placemark;
         NSDictionary *address = placemark.addressDictionary;
         NSString *city = [address valueForKey:@"City"];
         NSArray *formattedAddress = [address valueForKey:@"FormattedAddressLines"];
-        NSLog([address description]);
-        NSLog([formattedAddress description]);
         [placemark.addressDictionary description];
         self.locationDescription.text = [formattedAddress componentsJoinedByString:@"\n"];;
     }];
@@ -95,12 +89,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-        NSLog(@"prepare for segue");
  if ([segue.identifier isEqualToString:@"pushSelectDestination"]) {
            if ([segue.destinationViewController respondsToSelector:@selector(setOrigin:)]) {
-                NSLog(@"preform");
                  RouteCreationDestinationViewController *vc = [segue destinationViewController];
-                vc.origin = self.origin;
+               [vc setOrigin: self.origin];
             }
       }
 }

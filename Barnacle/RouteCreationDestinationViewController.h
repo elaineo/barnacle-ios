@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 @interface RouteCreationDestinationViewController : UIViewController
-@property CLLocationCoordinate2D origin;
+@property CLPlacemark* origin;
 @end
