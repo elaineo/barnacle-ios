@@ -12,6 +12,51 @@
 
 @implementation BarnacleRouteFetcher
 
+static NSDictionary* intervalDic = nil;
++ (NSDictionary*)getIntervalDictionary {
+    if (intervalDic == nil) {
+        intervalDic = @{@0: @"5 minutes",
+                        @1: @"10 minutes",
+                        @2: @"15 minutes",
+                        @3: @"20 minutes",
+                        @4: @"30 minutes",
+                        @5: @"45 minutes",
+                        @6: @"hour",
+                        @7: @"2 hours",
+                        @8: @"3 hours",
+                        @9: @"4 hours",
+                        @10: @"6 hours",
+                        @11: @"8 hours",
+                        @12: @"12 hours",
+                        @13: @"24 hours"};
+        
+    }
+    return intervalDic;
+}
+
+
+static NSDictionary* intervalValueDic = nil;
++ (NSDictionary*)getIntervalValueDictionary {
+    if (intervalValueDic == nil) {
+        intervalValueDic = @{@0: @300,
+                        @1: @600,
+                        @2: @900,
+                        @3: @1200,
+                        @4: @1800,
+                        @5: @2700,
+                        @6: @3600,
+                        @7: @7200,
+                        @8: @10800,
+                        @9: @14400,
+                        @10: @21600,
+                        @11: @28800,
+                        @12: @43200,
+                        @13: @86400};
+        
+    }
+    return intervalValueDic;
+}
+
 + (NSDictionary*) postJSON:(NSDictionary*) json url: (NSURL*) url error: (NSError*) error{
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:json options:0 error:&error];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];

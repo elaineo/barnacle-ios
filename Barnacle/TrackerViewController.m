@@ -37,7 +37,10 @@
 
 - (void) updateIntervalDisplayUI {
     if (self.autoUpdateState) {
-        self.updateIntervalDisplay.text = [NSString stringWithFormat:@"update every %1.0f minutes", self.interval];
+        NSDictionary *intervalDict = [BarnacleRouteFetcher getIntervalDictionary];
+        NSString *t = [intervalDict objectForKey:[NSNumber numberWithDouble:self.interval]];
+//        intervalDict[[[NSNumber numberWithDouble:self.interval] integerValue]];
+        self.updateIntervalDisplay.text = [NSString stringWithFormat:@"update every %@", t];
         [self.autoSwitch setOn:YES];
     } else {
         self.updateIntervalDisplay.text = @"Auto Update Off";
@@ -73,9 +76,10 @@
     self.interval = stepper.value;
     [self updateIntervalDisplayUI];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setDouble:stepper.value forKey:@"autoUpdateLocationInterval"];
+    NSDictionary *dict = [BarnacleRouteFetcher getIntervalValueDictionary];
+    double intervalSeconds = [dict[[NSNumber numberWithDouble:self.interval]] doubleValue];
+    [defaults setDouble:intervalSeconds forKey:@"autoUpdateLocationInterval"];
     [defaults synchronize];
-
     NSLog(@"%1.0f", stepper.value);
 }
 

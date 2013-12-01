@@ -18,7 +18,8 @@
 #define BARNACLE_LOC_END @"locend"
 
 @interface BarnacleRouteFetcher : NSObject
-
++ (NSDictionary*)getIntervalDictionary;
++ (NSDictionary*)getIntervalValueDictionary;
 + (NSArray *)latestRoutes;
 + (BOOL) switchStatus:(NSString*) routeKey;
 + (BOOL) deleteRoute:(NSString*) routeKey;

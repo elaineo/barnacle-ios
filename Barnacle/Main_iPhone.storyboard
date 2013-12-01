@@ -300,7 +300,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <action selector="autoUpdateSwitch:" destination="heB-6r-YJd" eventType="valueChanged" id="oCa-ek-ojl"/>
                                 </connections>
                             </switch>
-                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minimumValue="1" maximumValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="Cv7-lZ-2ig">
+                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="13" maximumValue="13" translatesAutoresizingMaskIntoConstraints="NO" id="Cv7-lZ-2ig">
                                 <rect key="frame" x="206" y="363" width="94" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <connections>

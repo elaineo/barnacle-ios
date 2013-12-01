@@ -23,7 +23,7 @@
     // Default User Preferences
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     [standardDefaults registerDefaults:@{@"autoUpdateLocation": [NSNumber numberWithBool:NO]}];
-    [standardDefaults registerDefaults:@{@"autoUpdateLocationInterval": [NSNumber numberWithDouble:15.0]}];
+    [standardDefaults registerDefaults:@{@"autoUpdateLocationInterval": [NSNumber numberWithDouble:2.0]}];
     [standardDefaults synchronize];
     // location manager
     self.lastUpdate = [[NSDate alloc] initWithTimeIntervalSince1970: 0];
