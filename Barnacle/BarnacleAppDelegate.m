@@ -7,8 +7,14 @@
 //
 
 #import "BarnacleAppDelegate.h"
+#import "BarnacleRouteFetcher.h"
+@interface BarnacleAppDelegate()
+@property NSDate* lastUpdate;
+@end
 
 @implementation BarnacleAppDelegate
+
+@synthesize locationManager;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -19,9 +25,19 @@
     [standardDefaults registerDefaults:@{@"autoUpdateLocation": [NSNumber numberWithBool:NO]}];
     [standardDefaults registerDefaults:@{@"autoUpdateLocationInterval": [NSNumber numberWithDouble:15.0]}];
     [standardDefaults synchronize];
+    // location manager
+    self.lastUpdate = [[NSDate alloc] initWithTimeIntervalSince1970: 0];
+    self.locationManager = [[CLLocationManager alloc] init];
+    if ( [CLLocationManager locationServicesEnabled] ) {
+        self.locationManager.delegate = self;
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+        self.locationManager.activityType = CLActivityTypeAutomotiveNavigation;
+//        [self.locationManager startUpdatingLocation];
+        [self.locationManager startMonitoringSignificantLocationChanges];
+
+    }
     return YES;
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -59,6 +75,31 @@
     
     // add app-specific handling code here
     return wasHandled;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    NSLog(@"location");
+    CLLocation* location = (CLLocation*)[locations lastObject];
+    NSUserDefaults *fetchDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL autoUpdateState = [fetchDefaults boolForKey:@"autoUpdateLocation"];
+    float interval = [fetchDefaults doubleForKey:@"autoUpdateLocationInterval"];
+    if (autoUpdateState) {
+        if ([[NSDate date] timeIntervalSinceDate:self.lastUpdate] > interval) {
+            self.lastUpdate = [NSDate date];
+            if (location) {
+                CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+                [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+                    CLPlacemark *placemark = [placemarks lastObject];
+                    NSDictionary *address = placemark.addressDictionary;
+                    NSArray *formattedAddress = [address valueForKey:@"FormattedAddressLines"];
+                    NSString *locstr = [formattedAddress componentsJoinedByString:@" "];
+                    [BarnacleRouteFetcher updateLocation: location locationString:locstr msg:@""];
+                }];
+                
+            }
+        }
+    }
 }
 
 @end

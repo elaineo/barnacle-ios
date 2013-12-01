@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface BarnacleAppDelegate : UIResponder <UIApplicationDelegate>
+@interface BarnacleAppDelegate : UIResponder <UIApplicationDelegate,CLLocationManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (retain, nonatomic) CLLocationManager *locationManager;
 @end

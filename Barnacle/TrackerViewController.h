@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 
-@interface TrackerViewController : UIViewController<CLLocationManagerDelegate>
+@interface TrackerViewController : UIViewController<CLLocationManagerDelegate, UITextFieldDelegate>
 
 
 @end

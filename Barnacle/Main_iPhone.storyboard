@@ -307,6 +307,15 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <action selector="changeUpdateInterval:" destination="heB-6r-YJd" eventType="valueChanged" id="6Bc-2u-Umk"/>
                                 </connections>
                             </stepper>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PBk-8I-3D2">
+                                <rect key="frame" x="20" y="410" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="heB-6r-YJd" id="iFo-kg-fEi"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -315,12 +324,13 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="autoSwitch" destination="K3G-cz-2PM" id="h32-dw-fLt"/>
                         <outlet property="intervalIncrementer" destination="Cv7-lZ-2ig" id="eCl-KB-vyS"/>
                         <outlet property="mapview" destination="LYO-v3-Wf6" id="rgd-0A-m0X"/>
+                        <outlet property="msg" destination="PBk-8I-3D2" id="JZ8-LQ-oDc"/>
                         <outlet property="updateIntervalDisplay" destination="Ng6-oS-6Bl" id="cGn-9g-7P0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ol9-up-ciq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="718" y="1133"/>
+            <point key="canvasLocation" x="718" y="1115"/>
         </scene>
         <!--Route Detail View Controller-->
         <scene sceneID="stJ-F9-TS3">

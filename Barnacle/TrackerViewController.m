@@ -12,16 +12,14 @@
 #import "BarnacleRouteFetcher.h"
 
 @interface TrackerViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *latitude;
 @property (weak, nonatomic) IBOutlet UILabel *updateIntervalDisplay;
 @property (weak, nonatomic) IBOutlet MKMapView *mapview;
-@property (weak, nonatomic) IBOutlet UILabel *longitude;
 @property BOOL autoUpdateState;
+@property (weak, nonatomic) IBOutlet UITextField *msg;
 @property double interval;
 @property (weak, nonatomic) IBOutlet UISwitch *autoSwitch;
-@property BOOL defferingUpdates;
 @property (weak, nonatomic) IBOutlet UIStepper *intervalIncrementer;
-@property NSDate* lastUpdate;
+@property CLLocation *lastLocation;
 @end
 
 @implementation TrackerViewController {
@@ -62,6 +60,13 @@
     [self updateIntervalDisplayUI];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
 
 - (IBAction)changeUpdateInterval:(id)sender {
     UIStepper *stepper = (UIStepper *) sender;
@@ -85,10 +90,11 @@
     self.interval = [fetchDefaults doubleForKey:@"autoUpdateLocationInterval"];
     [self.intervalIncrementer setValue:self.interval];
     [self updateIntervalDisplayUI];
-    self.defferingUpdates = NO;
-    self.lastUpdate = [[NSDate alloc] initWithTimeIntervalSince1970: 0];
     //
     locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+    locationManager.activityType = CLActivityTypeAutomotiveNavigation;
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,9 +121,6 @@
     {
         NSLog(@"Background updates are unavailable and the user cannot enable them again. For example, this status can occur when parental controls are in effect for the current user.");
     }
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
-    locationManager.activityType = CLActivityTypeAutomotiveNavigation;
     [locationManager startMonitoringSignificantLocationChanges];
 }
 
@@ -131,9 +134,8 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+    NSLog(@"tracker");
     CLLocation* location = (CLLocation*)[locations lastObject];
-    if ([[NSDate date] timeIntervalSinceDate:self.lastUpdate] > 5*60.0) {
-        self.lastUpdate = [NSDate date];
         if (location) {
             CLGeocoder *geocoder = [[CLGeocoder alloc] init];
             [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -141,11 +143,19 @@
                 NSDictionary *address = placemark.addressDictionary;
                 NSArray *formattedAddress = [address valueForKey:@"FormattedAddressLines"];
                 NSString *locstr = [formattedAddress componentsJoinedByString:@" "];
-                [BarnacleRouteFetcher updateLocation: location locationString:locstr msg:@""];
+                [BarnacleRouteFetcher updateLocation: location locationString:locstr msg:self.msg.text];
             }];
             
-        }
     }
+    MKCoordinateRegion region;
+    MKCoordinateSpan span;
+    span.latitudeDelta = 0.25;
+    span.longitudeDelta = 0.25;
+    
+    region.span = span;
+    region.center = location.coordinate;
+    [[self mapview] setRegion:region animated:YES];
+    [locationManager stopUpdatingLocation];
 }
 
 - (void)locationManagerDidPauseLocationUpdates{
@@ -156,25 +166,24 @@
 }
 
 
-- (void) locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error
-{
-    self.defferingUpdates = NO;
-    NSLog(@"finish differ");
-    switch ([error code]) {
-        case kCLErrorLocationUnknown:
-            NSLog(@"unknonw");
-            break;
-        case kCLErrorDenied:
-            NSLog(@"denied");
-            break;
-        case kCLErrorDeferredCanceled:
-            NSLog(@"cancel");
-            break;
-        default:
-            NSLog(@"default error");
-            break;
-    }
-}
+//- (void) locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error
+//{
+//    NSLog(@"finish differ");
+//    switch ([error code]) {
+//        case kCLErrorLocationUnknown:
+//            NSLog(@"unknonw");
+//            break;
+//        case kCLErrorDenied:
+//            NSLog(@"denied");
+//            break;
+//        case kCLErrorDeferredCanceled:
+//            NSLog(@"cancel");
+//            break;
+//        default:
+//            NSLog(@"default error");
+//            break;
+//    }
+//}
 
 //- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 //{

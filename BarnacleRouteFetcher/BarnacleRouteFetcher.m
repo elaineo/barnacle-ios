@@ -110,6 +110,7 @@
 
 
 + (BOOL) updateLocation: (CLLocation*) location locationString: (NSString*) locstr msg: (NSString*) msg {
+    NSLog(@"update location");
     double lat = location.coordinate.latitude;
     double lon = location.coordinate.longitude;
     NSArray *objects = [NSArray arrayWithObjects:
