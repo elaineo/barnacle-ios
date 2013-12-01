@@ -35,16 +35,13 @@
     NSURLResponse *response;
     NSError *error;
     NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
-    //    NSString *data = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
     NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData: urlData options:NSJSONReadingMutableContainers error:&error];
     return [JSON valueForKeyPath:@"routes"];
 }
 
 + (BOOL) deleteRoute:(NSString*) routeKey {
-    NSArray *objects = [NSArray arrayWithObjects: routeKey, [NSNumber numberWithInt:0], nil];
-    NSArray *keys = [NSArray arrayWithObjects: @"routekey", @"status", nil];
-    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects
-                                                         forKeys:keys ];
+    NSDictionary *jsonDict = @{@"routekey" : routeKey,
+                               @"status" : @0};
     NSError *error;
     NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/status"] error:error];
     if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
@@ -55,10 +52,8 @@
 
 
 + (BOOL) switchStatus:(NSString*) routeKey {
-    NSArray *objects = [NSArray arrayWithObjects: routeKey, [NSNumber numberWithInt:1], nil];
-    NSArray *keys = [NSArray arrayWithObjects: @"routekey", @"status", nil];
-    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects
-                                                         forKeys:keys ];
+    NSDictionary *jsonDict = @{@"routekey" : routeKey,
+                               @"status" : @1};
     NSError *error;
     NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/status"] error:error];
     if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
@@ -70,36 +65,18 @@
 + (BOOL) createRouteFrom:(CLPlacemark*) origin to: (CLPlacemark*) destination by: (NSDate*) date {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM/dd/yyyy"];
-    
     NSString *stringFromDate = [formatter stringFromDate:date];
-    
-    
     NSString* locstart = [[origin.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@" "];
     NSString* locend = [[destination.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@" "];
     
-    
-    NSArray *objects = [NSArray arrayWithObjects:
-                        [NSNumber numberWithInteger:0],
-                        [NSNumber numberWithFloat:origin.location.coordinate.latitude],
-                        [NSNumber numberWithFloat:origin.location.coordinate.longitude],
-                        [NSNumber numberWithFloat:destination.location.coordinate.latitude],
-                        [NSNumber numberWithFloat:destination.location.coordinate.longitude],
-                        locstart,
-                        locend,
-                        stringFromDate,
-                        nil];
-    NSArray *keys = [NSArray arrayWithObjects: @"tzoffset",
-                     @"startlat",
-                     @"startlon",
-                     @"destlat",
-                     @"destlon",
-                     @"locstart",
-                     @"locend",
-                     @"delivend",
-                     nil];
-    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects
-                                                         forKeys:keys ];
-    
+    NSDictionary *jsonDict = @{@"tzoffset" : @0,
+                               @"startlat" : [NSNumber numberWithFloat:origin.location.coordinate.longitude],
+                               @"startlon" : [NSNumber numberWithFloat:origin.location.coordinate.longitude],
+                               @"destlat" :  [NSNumber numberWithFloat:destination.location.coordinate.latitude],
+                               @"destlon" : [NSNumber numberWithFloat:destination.location.coordinate.longitude],
+                               @"locstart": locstart,
+                               @"locend" : locend,
+                               @"delivend": stringFromDate};
     NSError *error;
     NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/create"] error:error];
     if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
@@ -111,16 +88,10 @@
 
 + (BOOL) updateLocation: (CLLocation*) location locationString: (NSString*) locstr msg: (NSString*) msg {
     NSLog(@"update location");
-    double lat = location.coordinate.latitude;
-    double lon = location.coordinate.longitude;
-    NSArray *objects = [NSArray arrayWithObjects:
-                        [NSNumber numberWithDouble:lat],
-                        [NSNumber numberWithDouble:lon],
-                        locstr,
-                        msg, nil];
-    NSArray *keys = [NSArray arrayWithObjects: @"lat", @"lon", @"locstr", @"msg", nil];
-    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects
-                                                         forKeys:keys ];
+    NSDictionary *jsonDict = @{@"lat" : [NSNumber numberWithDouble:location.coordinate.latitude],
+                               @"lon" : [NSNumber numberWithDouble:location.coordinate.longitude],
+                               @"locstr" : locstr,
+                               @"msg" : msg};
     NSError *error;
     NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/updateloc"] error:error];
     if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
