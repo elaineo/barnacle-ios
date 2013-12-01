@@ -24,6 +24,7 @@
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     [standardDefaults registerDefaults:@{@"autoUpdateLocation": [NSNumber numberWithBool:NO]}];
     [standardDefaults registerDefaults:@{@"autoUpdateLocationInterval": [NSNumber numberWithDouble:2.0]}];
+    [standardDefaults registerDefaults:@{@"autoUpdateLocationIntervalTime": [NSNumber numberWithDouble:900.0]}];
     [standardDefaults synchronize];
     // location manager
     self.lastUpdate = [[NSDate alloc] initWithTimeIntervalSince1970: 0];
@@ -83,9 +84,9 @@
     CLLocation* location = (CLLocation*)[locations lastObject];
     NSUserDefaults *fetchDefaults = [NSUserDefaults standardUserDefaults];
     BOOL autoUpdateState = [fetchDefaults boolForKey:@"autoUpdateLocation"];
-    float interval = [fetchDefaults doubleForKey:@"autoUpdateLocationInterval"];
+    float intervalTime = [fetchDefaults doubleForKey:@"autoUpdateLocationIntervalTime"];
     if (autoUpdateState) {
-        if ([[NSDate date] timeIntervalSinceDate:self.lastUpdate] > interval) {
+        if ([[NSDate date] timeIntervalSinceDate:self.lastUpdate] > intervalTime) {
             self.lastUpdate = [NSDate date];
             if (location) {
                 CLGeocoder *geocoder = [[CLGeocoder alloc] init];

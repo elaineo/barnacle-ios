@@ -78,7 +78,8 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *dict = [BarnacleRouteFetcher getIntervalValueDictionary];
     double intervalSeconds = [dict[[NSNumber numberWithDouble:self.interval]] doubleValue];
-    [defaults setDouble:intervalSeconds forKey:@"autoUpdateLocationInterval"];
+    [defaults setDouble:self.interval forKey:@"autoUpdateLocationInterval"];
+    [defaults setDouble:intervalSeconds forKey:@"autoUpdateLocationIntervalTime"];
     [defaults synchronize];
     NSLog(@"%1.0f", stepper.value);
 }
