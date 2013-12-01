@@ -68,11 +68,8 @@
         default:
             break;
     }
-    CLLocation* location = [[CLLocation alloc] initWithLatitude:geoCoordinatesTapped.latitude longitude:geoCoordinatesTapped.longitude];
-    
+    CLLocation* location = [[CLLocation alloc] initWithLatitude:geoCoordinatesTapped.latitude longitude:geoCoordinatesTapped.longitude];    
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
-
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error){
         }

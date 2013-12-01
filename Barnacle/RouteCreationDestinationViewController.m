@@ -55,8 +55,6 @@
         if ([segue.destinationViewController respondsToSelector:@selector(setDestination:)]) {
             RouteCreationDateViewController *vc = [segue destinationViewController];
             [vc setDestination: self.destination];
-//            self.destination
-//            vc.destination =
         }
         
     }
