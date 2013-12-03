@@ -9,7 +9,9 @@
 #import "RouteCreationDateViewController.h"
 #import "BarnacleRouteFetcher.h"
 #import "RoutesCDTVC.h"
+#import "StandardAnnotation.h"
 @interface RouteCreationDateViewController ()
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
 @end
@@ -34,6 +36,9 @@
 	// Do any additional setup after loading the view.
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(promptCreate)];
     [self.datePicker setMinimumDate:[[NSDate alloc] init]];
+    [self.mapView addAnnotation:[[StandardAnnotation alloc] initWithLocation: self.origin.location]];
+    [self.mapView addAnnotation:[[StandardAnnotation alloc] initWithLocation: self.destination.location]];
+
 }
 
 - (void)promptCreate {

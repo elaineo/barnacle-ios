@@ -9,6 +9,7 @@
 #import "RouteCreationDestinationViewController.h"
 #import <MapKit/MapKit.h>
 #import "RouteCreationDateViewController.h"
+#import "StandardAnnotation.h"
 
 @interface RouteCreationDestinationViewController ()
 @property CLPlacemark *destination;
@@ -99,6 +100,11 @@
         [placemark.addressDictionary description];
         self.locationDescription.text = [formattedAddress componentsJoinedByString:@"\n"];;
     }];
+    for (id annotation in [self.mapView annotations]){
+        [self.mapView removeAnnotation:annotation];
+    }
+    [self.mapView addAnnotation:[[StandardAnnotation alloc] initWithLocation:location]];
+
 }
 
 

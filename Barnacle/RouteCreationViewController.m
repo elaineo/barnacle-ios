@@ -9,6 +9,7 @@
 #import "RouteCreationViewController.h"
 #import "RouteCreationDestinationViewController.h"
 #import <MapKit/MapKit.h>
+#import "StandardAnnotation.h"
 
 @interface RouteCreationViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -79,6 +80,10 @@
         NSArray *formattedAddress = [address valueForKey:@"FormattedAddressLines"];
         self.locationDescription.text = [formattedAddress componentsJoinedByString:@"\n"];;
     }];
+    for (id annotation in [self.mapView annotations]){
+        [self.mapView removeAnnotation:annotation];
+    }
+    [self.mapView addAnnotation:[[StandardAnnotation alloc] initWithLocation:location]];
 }
 
 
