@@ -81,7 +81,6 @@ static NSDictionary* intervalValueDic = nil;
     NSError *error;
     NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
     NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData: urlData options:NSJSONReadingMutableContainers error:&error];
-    NSLog([JSON description]);
     return [JSON valueForKeyPath:@"routes"];
 }
 
@@ -126,7 +125,6 @@ static NSDictionary* intervalValueDic = nil;
     NSError *error;
     NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/create"] error:error];
     NSLog(@"create");
-    NSLog([jsonResponse description]);
     if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
         return YES;
     }
