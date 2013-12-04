@@ -10,10 +10,11 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "BarnacleRouteFetcher.h"
+#import "StandardAnnotation.h"
 
 @interface TrackerViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *updateIntervalDisplay;
-@property (weak, nonatomic) IBOutlet MKMapView *mapview;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property BOOL autoUpdateState;
 @property (weak, nonatomic) IBOutlet UITextField *msg;
 @property double interval;
@@ -48,6 +49,14 @@
     }
 }
 
+- (IBAction)endDrive:(id)sender {
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                         destructiveButtonTitle:@"End Drive"
+                                              otherButtonTitles:nil];
+    [sheet showInView:self.view];
+}
 
 
 - (IBAction)autoUpdateSwitch:(id)sender {
@@ -159,8 +168,15 @@
     
     region.span = span;
     region.center = location.coordinate;
-    [[self mapview] setRegion:region animated:YES];
+    for (id annotation in [self.mapView annotations]){
+        [self.mapView removeAnnotation:annotation];
+    }
+    [self.mapView addAnnotation:[[StandardAnnotation alloc] initWithLocation:location]];
+
+    
+    [[self mapView] setRegion:region animated:YES];
     [locationManager stopUpdatingLocation];
+    
 }
 
 - (void)locationManagerDidPauseLocationUpdates{

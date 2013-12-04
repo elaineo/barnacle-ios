@@ -281,7 +281,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="updateLocation:" destination="heB-6r-YJd" eventType="touchUpInside" id="IjV-9j-gr0"/>
+                                    <action selector="endDrive:" destination="heB-6r-YJd" eventType="touchUpInside" id="8jf-Q1-flN"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Auto Update Off" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ng6-oS-6Bl">
@@ -312,7 +312,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 </connections>
                             </stepper>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PBk-8I-3D2">
-                                <rect key="frame" x="20" y="410" width="280" height="30"/>
+                                <rect key="frame" x="20" y="400" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -336,7 +336,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <connections>
                         <outlet property="autoSwitch" destination="K3G-cz-2PM" id="h32-dw-fLt"/>
                         <outlet property="intervalIncrementer" destination="Cv7-lZ-2ig" id="eCl-KB-vyS"/>
-                        <outlet property="mapview" destination="LYO-v3-Wf6" id="rgd-0A-m0X"/>
+                        <outlet property="mapView" destination="LYO-v3-Wf6" id="o3q-w0-GCN"/>
                         <outlet property="msg" destination="PBk-8I-3D2" id="JZ8-LQ-oDc"/>
                         <outlet property="updateIntervalDisplay" destination="Ng6-oS-6Bl" id="cGn-9g-7P0"/>
                     </connections>
@@ -358,7 +358,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSm-CY-zgv">
-                                <rect key="frame" x="29" y="98" width="37" height="21"/>
+                                <rect key="frame" x="20" y="80" width="37" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -414,7 +414,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wT7-fV-ZVM">
-                                <rect key="frame" x="136" y="517" width="51" height="31"/>
+                                <rect key="frame" x="136" y="70" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="changeStatus:" destination="YdN-TC-Vo5" eventType="valueChanged" id="Z8L-NJ-kUZ"/>
