@@ -32,7 +32,8 @@
 {
     [super viewWillAppear:animated];
     NSLog(@"will appear");
-    if (!self.managedObjectContext) [self useDemoDocument];
+    if (!self.managedObjectContext)
+        [self useDemoDocument];
 }
 
 - (void)pushRouteCreationVC {
