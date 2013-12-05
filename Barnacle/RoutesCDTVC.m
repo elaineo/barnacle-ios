@@ -32,8 +32,9 @@
 {
     [super viewWillAppear:animated];
     NSLog(@"will appear");
-    if (!self.managedObjectContext)
-        [self useDemoDocument];
+    if (!self.managedObjectContext) {
+        [self useBarnalceDocument];
+    }
 }
 
 - (void)pushRouteCreationVC {
@@ -41,10 +42,10 @@
     [self performSegueWithIdentifier:@"pushCreateRoute" sender:self];
 }
 
-- (void)useDemoDocument
+- (void)useBarnalceDocument
 {
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    url = [url URLByAppendingPathComponent:@"Demo Document3"];
+    url = [url URLByAppendingPathComponent:@"Barnacle Routes 3"];
     UIManagedDocument *document = [[UIManagedDocument alloc] initWithFileURL:url];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
@@ -60,10 +61,12 @@
         [document openWithCompletionHandler:^(BOOL success) {
             if (success) {
                 self.managedObjectContext = document.managedObjectContext;
+                                  [self refresh];
             }
         }];
     } else {
         self.managedObjectContext = document.managedObjectContext;
+                          [self refresh];
     }
 }
 

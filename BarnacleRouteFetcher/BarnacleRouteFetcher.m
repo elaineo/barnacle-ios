@@ -80,6 +80,8 @@ static NSDictionary* intervalValueDic = nil;
     NSURLResponse *response;
     NSError *error;
     NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
+    if (urlData)
+        NSLog(@"urlData");
     NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData: urlData options:NSJSONReadingMutableContainers error:&error];
     return [JSON valueForKeyPath:@"routes"];
 }
