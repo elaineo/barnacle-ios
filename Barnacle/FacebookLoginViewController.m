@@ -41,26 +41,23 @@
 }
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
-    NSLog(@"error");
+
 }
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user {
-    NSLog(@"info");
+
 }
 
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
-    NSLog(@"loginViewShowingLoggedInUser");
     [self.manageRouteButton setHidden:NO];
     [self.trackDeliveryButton setHidden:NO];
 
 }
 
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
-        NSLog(@"loginViewShowingLoggedOutUser");
     [self.manageRouteButton setHidden:YES];
     [self.trackDeliveryButton setHidden:YES];
-    
 }
 
 
@@ -78,41 +75,6 @@
                                        id<FBGraphUser> user,
                                        NSError *error) {
          if (!error) {
-             NSString *userInfo = @"";
-             
-             // Example: typed access (name)
-             // - no special permissions required
-             
-             userInfo = [userInfo
-                         stringByAppendingString:
-                         [NSString stringWithFormat:@"Name: %@\n\n",
-                          user.id]];
-             
-             userInfo = [userInfo
-                         stringByAppendingString:
-                         [NSString stringWithFormat:@"Name: %@\n\n",
-                          user.first_name]];
-             
-             userInfo = [userInfo
-                         stringByAppendingString:
-                         [NSString stringWithFormat:@"Name: %@\n\n",
-                          user.last_name]];
-             
-             userInfo = [userInfo
-                         stringByAppendingString:
-                         [NSString stringWithFormat:@"email: %@\n\n",
-                          [user objectForKey:@"email"]]];
-             
-             // Example: partially typed access, to location field,
-             // name key (location)
-             // - requires user_location permission
-             userInfo = [userInfo
-                         stringByAppendingString:
-                         [NSString stringWithFormat:@"Location: %@\n\n",
-                          user.location[@"name"]]];
-             
-//             NSLog(userInfo);
-             
              // login
              NSMutableURLRequest *request = [NSMutableURLRequest
                                              requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/signup/fb"]];
@@ -130,22 +92,6 @@
              if (!connection) {
                  NSLog(@"error");
              }
-//             NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-
-//
-//             
-//             request = [NSMutableURLRequest
-//                        requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/track/getroutes"]];
-//             [request setHTTPMethod:@"GET"];
-//             NSURLResponse *response;
-//             NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
-//             NSString *data=[[NSString alloc]initWithData:urlData encoding:NSUTF8StringEncoding];
-////             NSLog(data);
-//             NSDictionary *JSON =
-//             [NSJSONSerialization JSONObjectWithData: urlData options: NSJSONReadingMutableContainers
-//                                               error: &error];
-//             NSLog([JSON description]);
-
          } else {
 
          }

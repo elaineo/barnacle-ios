@@ -80,8 +80,6 @@ static NSDictionary* intervalValueDic = nil;
     NSURLResponse *response;
     NSError *error;
     NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
-    if (urlData)
-        NSLog(@"urlData");
     NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData: urlData options:NSJSONReadingMutableContainers error:&error];
     return [JSON valueForKeyPath:@"routes"];
 }
@@ -126,7 +124,6 @@ static NSDictionary* intervalValueDic = nil;
                                @"delivend": stringFromDate};
     NSError *error;
     NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/create"] error:error];
-    NSLog(@"create");
     if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
         return YES;
     }
@@ -135,7 +132,6 @@ static NSDictionary* intervalValueDic = nil;
 
 
 + (BOOL) updateLocation: (CLLocation*) location locationString: (NSString*) locstr msg: (NSString*) msg {
-    NSLog(@"update location");
     NSDictionary *jsonDict = @{@"lat" : [NSNumber numberWithDouble:location.coordinate.latitude],
                                @"lon" : [NSNumber numberWithDouble:location.coordinate.longitude],
                                @"locstr" : locstr,
