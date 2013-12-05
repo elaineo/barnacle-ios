@@ -73,6 +73,16 @@ static NSDictionary* intervalValueDic = nil;
     return jsonReponse;
 }
 
++ (BOOL) isLoggedIn {
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [cookieJar cookies]) {
+        if ([@"www.gobarnacle.com" isEqualToString: cookie.domain]) {
+            return YES;
+        }
+    }
+    return NO;
+}
 
 + (NSArray*) latestRoutes {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/track/getroutes"]];

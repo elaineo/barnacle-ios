@@ -8,6 +8,7 @@
 
 #import "FacebookLoginViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "BarnacleRouteFetcher.h"
 
 @interface FacebookLoginViewController ()
 @property (weak, nonatomic) IBOutlet FBLoginView *loginView;
@@ -52,28 +53,12 @@
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     [self.manageRouteButton setHidden:NO];
     [self.trackDeliveryButton setHidden:NO];
-
-}
-
-- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
-    [self.manageRouteButton setHidden:YES];
-    [self.trackDeliveryButton setHidden:YES];
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)buttonPressed:(id)sender {
     // Fetch user data
     [FBRequestConnection
      startForMeWithCompletionHandler:^(FBRequestConnection *connection,
                                        id<FBGraphUser> user,
                                        NSError *error) {
-         if (!error) {
+         if (!error && ![BarnacleRouteFetcher isLoggedIn]) {
              // login
              NSMutableURLRequest *request = [NSMutableURLRequest
                                              requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/signup/fb"]];
@@ -92,9 +77,25 @@
                  NSLog(@"error");
              }
          } else {
-
+             
          }
-      }];
+     }];
+}
+
+- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
+    [self.manageRouteButton setHidden:YES];
+    [self.trackDeliveryButton setHidden:YES];
+}
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)buttonPressed:(id)sender {
+
 }
 
 
