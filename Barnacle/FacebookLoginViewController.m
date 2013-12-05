@@ -68,7 +68,6 @@
 }
 
 - (IBAction)buttonPressed:(id)sender {
-                 NSLog(@"pressed");
     // Fetch user data
     [FBRequestConnection
      startForMeWithCompletionHandler:^(FBRequestConnection *connection,

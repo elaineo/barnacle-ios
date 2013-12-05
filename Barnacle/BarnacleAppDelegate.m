@@ -80,7 +80,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"location");
     CLLocation* location = (CLLocation*)[locations lastObject];
     NSUserDefaults *fetchDefaults = [NSUserDefaults standardUserDefaults];
     BOOL autoUpdateState = [fetchDefaults boolForKey:@"autoUpdateLocation"];

@@ -31,14 +31,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"will appear");
     if (!self.managedObjectContext) {
         [self useBarnalceDocument];
     }
 }
 
 - (void)pushRouteCreationVC {
-    NSLog(@"create");
     [self performSegueWithIdentifier:@"pushCreateRoute" sender:self];
 }
 
@@ -91,7 +89,6 @@
         NSArray *routes = [BarnacleRouteFetcher latestRoutes];
         [self.managedObjectContext performBlock:^{
             for (NSDictionary *route in routes) {
-                NSLog(@"%@", [route description]);
                 [Route routeWithBarnacleInfo:route inManagedObjectConext:self.managedObjectContext];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -127,8 +124,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Route"];
     
     Route *route = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSLog(@"%@", route.routekey);
-    NSLog(@"%@", route.locstart);
     cell.textLabel.text = route.locstart;
     cell.detailTextLabel.text = route.locend;
     
@@ -143,11 +138,9 @@ NSIndexPath *indexPath = nil;
     }
     
     if (indexPath) {
-        NSLog(@"prepare for segue");
         if ([segue.identifier isEqualToString:@"setRoute:"]) {
             Route *route = [self.fetchedResultsController objectAtIndexPath:indexPath];
             if ([segue.destinationViewController respondsToSelector:@selector(setRoute:)]) {
-                NSLog(@"preform");
                 [segue.destinationViewController performSelector:@selector(setRoute:) withObject:route];
             }
         }
