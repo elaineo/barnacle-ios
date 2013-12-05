@@ -59,7 +59,6 @@
         [document openWithCompletionHandler:^(BOOL success) {
             if (success) {
                 self.managedObjectContext = document.managedObjectContext;
-                                  [self refresh];
             }
         }];
     } else {

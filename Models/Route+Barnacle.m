@@ -27,7 +27,6 @@
         NSLog(@"%@", [error description]);
         // handle error
     } else if (![matches count]) {
-        NSLog(@"new");
         route = [NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:context];
         route.routekey = routeDictionary[BARNACLE_ROUTE_KEY];
         route.delivend = routeDictionary[BARNACLE_DELIVEND];
@@ -35,10 +34,6 @@
         route.locstart = routeDictionary[BARNACLE_LOC_START];
         route.locend = routeDictionary[BARNACLE_LOC_END];
         route.statusint = [routeDictionary[BARNACLE_STATUSINT] integerValue];
-        NSLog(@"%d",  route.statusint);
-        if ( route.statusint == 0) {
-            NSLog(@"PANDA");
-        }
         switch ([routeDictionary[BARNACLE_STATUSINT] integerValue]) {
             case 0:
                 route.status = @"Active";
