@@ -20,7 +20,9 @@
 @property double interval;
 @property (weak, nonatomic) IBOutlet UISwitch *autoSwitch;
 @property (weak, nonatomic) IBOutlet UIStepper *intervalIncrementer;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property CLLocation *lastLocation;
+@property (weak, nonatomic) UITextField *activeField;
 @end
 
 @implementation TrackerViewController {
@@ -97,7 +99,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-
+    [self registerForKeyboardNotifications];
+    self.scrollView.contentSize=CGSizeMake(320,1000);
     // Grab user defaults
     NSUserDefaults *fetchDefaults = [NSUserDefaults standardUserDefaults];
     self.autoUpdateState = [fetchDefaults boolForKey:@"autoUpdateLocation"];
@@ -111,10 +114,58 @@
     locationManager.activityType = CLActivityTypeAutomotiveNavigation;
 }
 
+// Call this method somewhere in your view controller setup code.
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+// Called when the UIKeyboardDidShowNotification is sent.
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey]
+                     CGRectValue].size;
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    self.scrollView.contentInset = contentInsets;
+    
+    self.scrollView.scrollIndicatorInsets = contentInsets;
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your app might not need or want this behavior.
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+    if (!CGRectContainsPoint(aRect, self.activeField.frame.origin) ) {
+        [self.scrollView scrollRectToVisible:self.activeField.frame animated:YES];
+    }
+}
+
+// Called when the UIKeyboardWillHideNotification is sent
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.scrollView.contentInset = contentInsets;
+    self.scrollView.scrollIndicatorInsets = contentInsets;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.activeField = textField;
+    NSLog(@"activefield");
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    self.activeField = nil;
 }
 
 - (IBAction)updateLocation:(id)sender {
