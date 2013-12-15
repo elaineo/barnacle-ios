@@ -100,7 +100,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self registerForKeyboardNotifications];
-    self.scrollView.contentSize=CGSizeMake(320,1000);
     // Grab user defaults
     NSUserDefaults *fetchDefaults = [NSUserDefaults standardUserDefaults];
     self.autoUpdateState = [fetchDefaults boolForKey:@"autoUpdateLocation"];
@@ -112,6 +111,14 @@
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
     locationManager.activityType = CLActivityTypeAutomotiveNavigation;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    NSLog(@"%f", self.scrollView.contentSize.height);
+    NSLog(@"%f", self.scrollView.contentSize.width);
+    self.scrollView.contentSize = CGSizeMake(320, 2000);
 }
 
 // Call this method somewhere in your view controller setup code.
@@ -134,6 +141,7 @@
 // Called when the UIKeyboardDidShowNotification is sent.
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
+        self.scrollView.contentSize = CGSizeMake(320, 2000);
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey]
                      CGRectValue].size;
