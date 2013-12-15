@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property CLLocation *lastLocation;
 @property (weak, nonatomic) UITextField *activeField;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 @end
 
 @implementation TrackerViewController {
@@ -111,6 +112,15 @@
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
     locationManager.activityType = CLActivityTypeAutomotiveNavigation;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
+
+    self.contentView.frame = CGRectMake(0, 0, 320, 2000);
+   self.scrollView.contentSize = CGSizeMake(320, 2000);
+    [self.scrollView setContentSize:CGSizeMake(320,2000)];
+//    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+//    self.scrollView.contentInset = contentInsets;
+//    self.scrollView.scrollIndicatorInsets = contentInsets;
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -118,7 +128,11 @@
     [super viewDidAppear:animated];
     NSLog(@"%f", self.scrollView.contentSize.height);
     NSLog(@"%f", self.scrollView.contentSize.width);
-    self.scrollView.contentSize = CGSizeMake(320, 2000);
+//    self.scrollView.contentSize = CGSizeMake(320, 2000);
+//    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+//    self.scrollView.contentInset = contentInsets;
+//    self.scrollView.scrollIndicatorInsets = contentInsets;
+
 }
 
 // Call this method somewhere in your view controller setup code.
@@ -141,7 +155,7 @@
 // Called when the UIKeyboardDidShowNotification is sent.
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
-        self.scrollView.contentSize = CGSizeMake(320, 2000);
+//        self.scrollView.contentSize = CGSizeMake(320, 2000);
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey]
                      CGRectValue].size;
@@ -153,17 +167,19 @@
     // Your app might not need or want this behavior.
     CGRect aRect = self.view.frame;
     aRect.size.height -= kbSize.height;
+//           self.scrollView.contentSize = CGSizeMake(320, 2000);
     if (!CGRectContainsPoint(aRect, self.activeField.frame.origin) ) {
-        [self.scrollView scrollRectToVisible:self.activeField.frame animated:YES];
+        [self.scrollView scrollRectToVisible: CGRectMake(0, 1500, 320, 500) animated:YES];
     }
 }
 
 // Called when the UIKeyboardWillHideNotification is sent
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
-    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    self.scrollView.contentInset = contentInsets;
-    self.scrollView.scrollIndicatorInsets = contentInsets;
+//    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+//    self.scrollView.contentInset = contentInsets;
+//    self.scrollView.scrollIndicatorInsets = contentInsets;
+   [self.scrollView scrollRectToVisible:    CGRectMake(0, 0, 320, 500) animated:YES];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
