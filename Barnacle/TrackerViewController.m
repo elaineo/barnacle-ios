@@ -53,14 +53,38 @@
 }
 
 - (IBAction)endDrive:(id)sender {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Do you want to confirm your arrival?"
                                                        delegate:self
                                               cancelButtonTitle:@"Cancel"
-                                         destructiveButtonTitle:@"End Drive"
-                                              otherButtonTitles:nil];
+                                         destructiveButtonTitle:@"Confirm"
+                                              otherButtonTitles:@"No, Just End Drive", nil];
     [sheet showInView:self.view];
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch(buttonIndex){
+        case 0:{
+            NSLog(@"Confirm");
+            break;
+        }
+        case 1:
+        {
+            NSLog(@"Just End Drive");
+            dispatch_queue_t fetchQ = dispatch_queue_create("Status Update", NULL);
+            dispatch_async(fetchQ, ^{
+                [BarnacleRouteFetcher endDrive];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                });
+            });
+
+            break;
+        }
+        default:
+            break;
+    }
+
+}
 
 - (IBAction)autoUpdateSwitch:(id)sender {
     UISwitch *stepper = (UISwitch *) sender;

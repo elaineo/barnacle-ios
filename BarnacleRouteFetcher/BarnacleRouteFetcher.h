@@ -22,6 +22,7 @@
 + (NSDictionary*)getIntervalValueDictionary;
 + (NSArray *)latestRoutes;
 + (BOOL) isLoggedIn;
++ (BOOL) endDrive;
 + (BOOL) switchStatus:(NSString*) routeKey;
 + (BOOL) deleteRoute:(NSString*) routeKey;
 + (BOOL) updateLocation: (CLLocation*) location locationString: (NSString*) locstr msg: (NSString*) msg; 

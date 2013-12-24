@@ -105,6 +105,16 @@ static NSDictionary* intervalValueDic = nil;
     return NO;
 }
 
++ (BOOL) endDrive {
+    NSDictionary *jsonDict = @{};
+    NSError *error;
+    NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/inactivate"] error:error];
+    if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
+        return YES;
+    }
+    return NO;
+}
+
 
 + (BOOL) switchStatus:(NSString*) routeKey {
     NSDictionary *jsonDict = @{@"routekey" : routeKey,
