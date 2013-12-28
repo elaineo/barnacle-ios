@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Route.h"
 
 @interface ConfirmArrivalViewController : UIViewController
-
+@property (nonatomic, strong) Route *route;
 @end
