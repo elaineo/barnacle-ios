@@ -164,4 +164,27 @@ static NSDictionary* intervalValueDic = nil;
     return NO;
 }
 
++ (BOOL) trackConfirm: (NSString*) routeKey withCode: (NSString*) code
+{
+    NSDictionary *jsonDict = @{@"routekey" : routeKey,
+                               @"code" : code};
+    NSError *error;
+    NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/confirm"] error:error];
+    if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
+        return YES;
+    }
+    return NO;
+}
+
++ (BOOL) trackSubmit: (NSString*) routeKey
+{
+    NSDictionary *jsonDict = @{@"routekey" : routeKey};
+    NSError *error;
+    NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/sendconfirm"] error:error];
+    if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
+        return YES;
+    }
+    return NO;
+}
+
 @end

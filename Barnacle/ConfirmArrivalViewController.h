@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "Route.h"
 
-@interface ConfirmArrivalViewController : UIViewController
+@interface ConfirmArrivalViewController : UIViewController <UITextFieldDelegate>
 @property (nonatomic, strong) Route *route;
 @end
