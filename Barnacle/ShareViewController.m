@@ -39,39 +39,24 @@
 - (IBAction)share:(id)sender {
     NSLog(@"share");
     NSURL* url = [NSURL URLWithString:@"https://developers.facebook.com/ios"];
-    if ([FBDialogs canPresentShareDialogWithParams:nil]) {
-    
-    } else {
-        NSLog(@"cannot share");
-    }
-    
+    // https://developers.facebook.com/docs/ios/ui-controls/#share-link
     FBShareDialogParams *params = [[FBShareDialogParams alloc] init];
     params.link = [NSURL URLWithString:@"https://example.com/book/Snow-Crash.html"];
     BOOL canShare = [FBDialogs canPresentShareDialogWithParams:params];
     if (canShare) {
-        // FBDialogs call to open Share dialog
+        [FBDialogs presentShareDialogWithLink:url
+                                      handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+                                          if(error) {
+                                              NSLog(@"Error: %@", error.description);
+                                          } else {
+                                              NSLog(@"Success!");
+                                          }
+                                      }];
+    }
+    else {
+                NSLog(@"cannot share");
     }
     
-    [FBDialogs presentShareDialogWithLink:url
-                                  handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
-                                      if(error) {
-                                          NSLog(@"Error: %@", error.description);
-                                      } else {
-                                          NSLog(@"Success!");
-                                      }
-                                  }];
-    id<FBOpenGraphAction> action = (id<FBOpenGraphAction>)[FBGraphObject graphObject];
-    [action setObject:@"https://example.com/book/Snow-Crash.html" forKey:@"book"];
-    
-    [FBDialogs presentShareDialogWithOpenGraphAction:action
-                                          actionType:@"books.reads"
-                                 previewPropertyName:@"book"
-                                             handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
-                                                 if(error) {
-                                                     NSLog(@"Error: %@", error.description);
-                                                 } else {
-                                                     NSLog(@"Success!");
-                                                 }
-                                             }];
+
 }
 @end

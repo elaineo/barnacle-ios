@@ -54,5 +54,14 @@
 	<array>
 		<string>Icon</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb540602052657989</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
