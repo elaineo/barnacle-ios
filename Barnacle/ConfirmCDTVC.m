@@ -32,7 +32,9 @@
 	// Do any additional setup after loading the view.
     self.title = @"Confirm";
     if (!self.managedObjectContext) {
+        NSLog(@"a");
         [self useBarnalceDocument];
+                NSLog(@"b");
     }
 }
 
@@ -49,20 +51,27 @@
     UIManagedDocument *document = [[UIManagedDocument alloc] initWithFileURL:url];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
+        // New File
         [document saveToURL:url
            forSaveOperation:UIDocumentSaveForCreating
           completionHandler:^(BOOL success) {
               if (success) {
                   self.managedObjectContext = document.managedObjectContext;
+                                    [self refresh];
               }
           }];
     } else if (document.documentState == UIDocumentStateClosed) {
+        // Exisiting file closed
+                NSLog(@"eixsitn closed");
         [document openWithCompletionHandler:^(BOOL success) {
             if (success) {
                 self.managedObjectContext = document.managedObjectContext;
             }
+                              [self refresh];
         }];
     } else {
+        // Existing file open
+        NSLog(@"eixsitn open");
         self.managedObjectContext = document.managedObjectContext;
     }
 }
@@ -70,6 +79,7 @@
 // TODO fix
 - (IBAction)refresh
 {
+    NSLog(@"@refrehs confirm");
     [self.refreshControl beginRefreshing];
     
     // begin delete existing database
@@ -103,7 +113,7 @@
     if (managedObjectContext) {
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Route"];
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BARNACLE_STATUS ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-        request.predicate = nil; // all routes
+        request.predicate = [NSPredicate predicateWithFormat:@"status == 'Active'"];
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:BARNACLE_STATUS cacheName:nil];
     } else {
         self.fetchedResultsController = nil;
@@ -112,12 +122,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Confirm"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConfirmRoute"];
     
     Route *route = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = route.locstart;
     cell.detailTextLabel.text = route.locend;
-    cell.textLabel.text = @"aaa";
     return cell;
     
 }

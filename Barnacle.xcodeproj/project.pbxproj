@@ -18,6 +18,7 @@
 		1F4B07E2180CE84600EE6DC2 /* BarnacleRouteFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4B07E1180CE84600EE6DC2 /* BarnacleRouteFetcher.m */; };
 		1F4B07E4180CF35F00EE6DC2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4B07E3180CF35F00EE6DC2 /* CoreData.framework */; };
 		1F4B07E8180CF42F00EE6DC2 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4B07E6180CF42F00EE6DC2 /* CoreDataTableViewController.m */; };
+		1F8086E7186E54E4003A4457 /* ConfirmArrivalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8086E6186E54E4003A4457 /* ConfirmArrivalViewController.m */; };
 		1F939C35180B38D6001A5BDD /* RoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F939C34180B38D6001A5BDD /* RoutesViewController.m */; };
 		1F939C3B180BA157001A5BDD /* BarnacleModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F939C39180BA157001A5BDD /* BarnacleModel.xcdatamodeld */; };
 		1FA269B4186921C5008B0FD7 /* ConfirmCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA269B3186921C5008B0FD7 /* ConfirmCDTVC.m */; };
@@ -81,6 +82,8 @@
 		1F4B07E3180CF35F00EE6DC2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1F4B07E5180CF42F00EE6DC2 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		1F4B07E6180CF42F00EE6DC2 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
+		1F8086E5186E54E4003A4457 /* ConfirmArrivalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmArrivalViewController.h; sourceTree = "<group>"; };
+		1F8086E6186E54E4003A4457 /* ConfirmArrivalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmArrivalViewController.m; sourceTree = "<group>"; };
 		1F939C33180B38D6001A5BDD /* RoutesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutesViewController.h; sourceTree = "<group>"; };
 		1F939C34180B38D6001A5BDD /* RoutesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesViewController.m; sourceTree = "<group>"; };
 		1F939C3A180BA157001A5BDD /* BarnacleModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BarnacleModel.xcdatamodel; sourceTree = "<group>"; };
@@ -208,14 +211,16 @@
 		1FA2E44517F2B52E00CA5CF9 /* Barnacle */ = {
 			isa = PBXGroup;
 			children = (
-				1FBC42EC1848018700ACA298 /* RouteCreationViewController.h */,
 				1F004806184DC35D006C40D1 /* StandardAnnotation.h */,
 				1F004807184DC35D006C40D1 /* StandardAnnotation.m */,
+				1FBC42EC1848018700ACA298 /* RouteCreationViewController.h */,
 				1FBC42ED1848018700ACA298 /* RouteCreationViewController.m */,
 				1FBC42EF1848197D00ACA298 /* RouteCreationDestinationViewController.h */,
 				1FBC42F01848197D00ACA298 /* RouteCreationDestinationViewController.m */,
 				1FBC42F218481B1F00ACA298 /* RouteCreationDateViewController.h */,
 				1FBC42F318481B1F00ACA298 /* RouteCreationDateViewController.m */,
+				1F8086E5186E54E4003A4457 /* ConfirmArrivalViewController.h */,
+				1F8086E6186E54E4003A4457 /* ConfirmArrivalViewController.m */,
 				1FA2E45417F2B52E00CA5CF9 /* Main_iPad.storyboard */,
 				1F3D65EE17F931D800C78DF0 /* Main_iPhone.storyboard */,
 				1F328737181E1B4C003E5EB1 /* TrackerViewController.h */,
@@ -410,6 +415,7 @@
 				1F4B07E2180CE84600EE6DC2 /* BarnacleRouteFetcher.m in Sources */,
 				1F004808184DC35D006C40D1 /* StandardAnnotation.m in Sources */,
 				1F4B07DF180CE61700EE6DC2 /* Route+Barnacle.m in Sources */,
+				1F8086E7186E54E4003A4457 /* ConfirmArrivalViewController.m in Sources */,
 				1F939C3B180BA157001A5BDD /* BarnacleModel.xcdatamodeld in Sources */,
 				1FA269B4186921C5008B0FD7 /* ConfirmCDTVC.m in Sources */,
 				1FCADFCB180E5FBA00B41CBE /* RouteDetailViewController.m in Sources */,
