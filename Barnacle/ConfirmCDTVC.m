@@ -10,6 +10,7 @@
 #import "Route.h"
 #import "Route+Barnacle.h"
 #import "BarnacleRouteFetcher.h"
+#import "ConfirmArrivalViewController.h"
 
 @interface ConfirmCDTVC ()
 
@@ -139,12 +140,13 @@
     }
     
     if (indexPath) {
-        if ([segue.identifier isEqualToString:@"setRoute:"]) {
+//        if ([segue.identifier isEqualToString:@"pushConfirmArrival:"]) {
             Route *route = [self.fetchedResultsController objectAtIndexPath:indexPath];
             if ([segue.destinationViewController respondsToSelector:@selector(setRoute:)]) {
+                NSLog(@"segue");
                 [segue.destinationViewController performSelector:@selector(setRoute:) withObject:route];
             }
-        }
+//        }
     }
 }
 

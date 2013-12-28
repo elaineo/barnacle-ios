@@ -34,6 +34,7 @@
 {
     [super viewDidLoad];
     self.title = @"Arrival";
+    [self updateUI];
 	// Do any additional setup after loading the view.
 }
 
@@ -45,12 +46,15 @@
 
 - (void)setRoute:(Route *)route
 {
+    NSLog(@"confirm arrival route set");
     _route = route;
+    [self updateUI];
 }
 
 - (void) updateUI
 {
     self.routeInfo.text = self.route.locend;
+    NSLog(self.route.locend);
 }
 
 @end
