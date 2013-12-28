@@ -26,12 +26,12 @@
         [alert show];
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delivery"
-                                                    message:@"Wrong Code!"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delivery"
+                                                        message:@"Wrong Code!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
     }
 }
 
@@ -51,10 +51,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     self.title = @"Arrival";
     self.confirmCodeTextField.delegate = self;
     [self updateUI];
-	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,7 +65,6 @@
 
 - (void)setRoute:(Route *)route
 {
-    NSLog(@"confirm arrival route set");
     _route = route;
     [self updateUI];
 }
@@ -73,7 +72,6 @@
 - (void) updateUI
 {
     self.routeInfo.text = self.route.locend;
-    NSLog(self.route.locend);
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
