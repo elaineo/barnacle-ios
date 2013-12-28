@@ -1,42 +1,45 @@
 //
-//  RoutesCDTVC.m
+//  ConfirmCDTVC.m
 //  Barnacle
 //
-//  Created by Warren Mar on 10/14/13.
+//  Created by Warren Mar on 12/23/13.
 //  Copyright (c) 2013 Warren Mar. All rights reserved.
 //
 
-#import "RoutesCDTVC.h"
+#import "ConfirmCDTVC.h"
 #import "Route.h"
 #import "Route+Barnacle.h"
 #import "BarnacleRouteFetcher.h"
-#import "RouteCreationViewController.h"
-#import "RouteDetailViewController.h"
 
-@interface RoutesCDTVC ()
+@interface ConfirmCDTVC ()
+
 @end
 
-@implementation RoutesCDTVC
+@implementation ConfirmCDTVC
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.title = @"Routes";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(pushRouteCreationVC)];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+    self.title = @"Confirm";
     if (!self.managedObjectContext) {
         [self useBarnalceDocument];
     }
 }
 
-- (void)pushRouteCreationVC {
-    [self performSegueWithIdentifier:@"pushCreateRoute" sender:self];
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)useBarnalceDocument
@@ -51,7 +54,6 @@
           completionHandler:^(BOOL success) {
               if (success) {
                   self.managedObjectContext = document.managedObjectContext;
-                  [self refresh];
               }
           }];
     } else if (document.documentState == UIDocumentStateClosed) {
@@ -62,17 +64,14 @@
         }];
     } else {
         self.managedObjectContext = document.managedObjectContext;
-                          [self refresh];
     }
 }
-
-
 
 // TODO fix
 - (IBAction)refresh
 {
     [self.refreshControl beginRefreshing];
-    NSLog(@"refresh");
+    
     // begin delete existing database
     NSManagedObjectContext * context = [self managedObjectContext];
     NSFetchRequest * fetch = [[NSFetchRequest alloc] init];
@@ -98,12 +97,6 @@
 
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
     _managedObjectContext = managedObjectContext;
@@ -119,30 +112,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Route"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Confirm"];
     
     Route *route = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = route.locstart;
     cell.detailTextLabel.text = route.locend;
-    
+    cell.textLabel.text = @"aaa";
     return cell;
-}
-
-NSIndexPath *indexPath = nil;
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([sender isKindOfClass:[UITableViewCell class]]) {
-        indexPath = [self.tableView indexPathForCell:sender];
-    }
     
-    if (indexPath) {
-        if ([segue.identifier isEqualToString:@"setRoute:"]) {
-            Route *route = [self.fetchedResultsController objectAtIndexPath:indexPath];
-            if ([segue.destinationViewController respondsToSelector:@selector(setRoute:)]) {
-                [segue.destinationViewController performSelector:@selector(setRoute:) withObject:route];
-            }
-        }
-    }
 }
 
 @end

@@ -65,6 +65,7 @@
     switch(buttonIndex){
         case 0:{
             NSLog(@"Confirm");
+            [self performSegueWithIdentifier:@"pushConfirm" sender:self];
             break;
         }
         case 1:
