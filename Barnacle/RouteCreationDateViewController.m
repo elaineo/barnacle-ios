@@ -69,6 +69,7 @@
 
 - (void) createAndShare
 {
+    NSLog(@"ooo");
     NSDictionary* response = [BarnacleRouteFetcher createRouteFrom:self.origin to:self.destination by:self.datePicker.date];
     NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.gobarnacle.com%@", [[response objectForKey:@"route"] objectForKey:@"post_url"]]];
     NSLog([url description]);
@@ -77,6 +78,7 @@
                                       if(error) {
                                           NSLog(@"Error: %@", error.description);
                                       } else {
+                                          NSLog(@"share successful");
                                           NSArray *vcs = self.navigationController.viewControllers;
                                           UIViewController *vc = [vcs objectAtIndex: 1];
                                           [self.navigationController popToViewController:vc animated:YES];

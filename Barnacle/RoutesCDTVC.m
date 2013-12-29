@@ -70,7 +70,7 @@
 
 // TODO fix
 - (IBAction)refresh
-{
+{    
     [self.refreshControl beginRefreshing];
     NSLog(@"refresh");
     // begin delete existing database
