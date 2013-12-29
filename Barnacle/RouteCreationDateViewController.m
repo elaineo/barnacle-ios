@@ -10,9 +10,11 @@
 #import "BarnacleRouteFetcher.h"
 #import "RoutesCDTVC.h"
 #import "StandardAnnotation.h"
+#import <FacebookSDK/FacebookSDK.h>
 @interface RouteCreationDateViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property BOOL canFBShare;
 
 @end
 
@@ -38,37 +40,92 @@
     [self.datePicker setMinimumDate:[[NSDate alloc] init]];
     [self.mapView addAnnotation:[[StandardAnnotation alloc] initWithLocation: self.origin.location]];
     [self.mapView addAnnotation:[[StandardAnnotation alloc] initWithLocation: self.destination.location]];
-
+    FBShareDialogParams *params = [[FBShareDialogParams alloc] init];
+    params.link = [NSURL URLWithString:@"https://example.com/book/Snow-Crash.html"];
+    self.canFBShare = [FBDialogs canPresentShareDialogWithParams:params];
+    if (self.canFBShare) {
+        NSLog(@"can share");
+    }
 }
 
 - (void)promptCreate {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                       delegate:self
-                                              cancelButtonTitle:@"Cancel"
-                                         destructiveButtonTitle:@"Create"
-                                              otherButtonTitles:nil];
-    [sheet showInView:self.view];
+    if (self.canFBShare) {
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                             destructiveButtonTitle:@"Create and Share"
+                                                  otherButtonTitles:@"Create", nil];
+        [sheet showInView:self.view];
+        
+    } else {
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                             destructiveButtonTitle:@"Create"
+                                                  otherButtonTitles:nil];
+        [sheet showInView:self.view];
+    }
+}
+
+- (void) createAndShare
+{
+    NSDictionary* response = [BarnacleRouteFetcher createRouteFrom:self.origin to:self.destination by:self.datePicker.date];
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.gobarnacle.com%@", [[response objectForKey:@"route"] objectForKey:@"post_url"]]];
+    NSLog([url description]);
+    [FBDialogs presentShareDialogWithLink:url
+                                  handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+                                      if(error) {
+                                          NSLog(@"Error: %@", error.description);
+                                      } else {
+                                          NSArray *vcs = self.navigationController.viewControllers;
+                                          UIViewController *vc = [vcs objectAtIndex: 1];
+                                          [self.navigationController popToViewController:vc animated:YES];
+                                          RoutesCDTVC * rcv = (RoutesCDTVC *)vc;
+                                          [rcv refresh];
+
+                                      }
+                                  }];
+    
+}
+
+- (void) create {
+    [BarnacleRouteFetcher createRouteFrom:self.origin to:self.destination by:self.datePicker.date];
+    NSArray *vcs = self.navigationController.viewControllers;
+    UIViewController *vc = [vcs objectAtIndex: 1];
+    [self.navigationController popToViewController:vc animated:YES];
+    RoutesCDTVC * rcv = (RoutesCDTVC *)vc;
+    [rcv refresh];
+}
+
+- (void) cancel {
+    NSArray *vcs = self.navigationController.viewControllers;
+    UIViewController *vc = [vcs objectAtIndex: 1];
+    [self.navigationController popToViewController:vc animated:YES];
+
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSLog(@"action sheet");
     switch(buttonIndex){
         case 0:{
-            [BarnacleRouteFetcher createRouteFrom:self.origin to:self.destination by:self.datePicker.date];
-            NSArray *vcs = self.navigationController.viewControllers;
-            UIViewController *vc = [vcs objectAtIndex: 1];
-            [self.navigationController popToViewController:vc animated:YES];
-            RoutesCDTVC * rcv = (RoutesCDTVC *)vc;
-            [rcv refresh];
+            if (self.canFBShare) {
+                [self createAndShare];
+            } else {
+                [self create];
+            }
             break;
         }
         case 1:
         {
-            NSArray *vcs = self.navigationController.viewControllers;
-            UIViewController *vc = [vcs objectAtIndex: 1];
-            [self.navigationController popToViewController:vc animated:YES];
+            if (self.canFBShare) {
+                [self create];
+            } else {
+                [self cancel];
+            }
             break;
         }
+        case 2:
+            [self cancel];
+            break;
         default:
             break;
     }
