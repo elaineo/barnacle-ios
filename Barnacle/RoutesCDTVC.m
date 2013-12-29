@@ -58,11 +58,12 @@
         [document openWithCompletionHandler:^(BOOL success) {
             if (success) {
                 self.managedObjectContext = document.managedObjectContext;
+                [self refresh];
             }
         }];
     } else {
         self.managedObjectContext = document.managedObjectContext;
-                          [self refresh];
+        [self refresh];
     }
 }
 
@@ -70,7 +71,7 @@
 
 // TODO fix
 - (IBAction)refresh
-{    
+{
     [self.refreshControl beginRefreshing];
     NSLog(@"refresh");
     // begin delete existing database
