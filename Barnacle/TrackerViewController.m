@@ -65,13 +65,11 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     switch(buttonIndex){
         case 0:{
-            NSLog(@"Confirm");
             [self performSegueWithIdentifier:@"pushConfirm" sender:self];
             break;
         }
         case 1:
         {
-            NSLog(@"Just End Drive");
             dispatch_queue_t fetchQ = dispatch_queue_create("Status Update", NULL);
             dispatch_async(fetchQ, ^{
                 [BarnacleRouteFetcher endDrive];
@@ -122,7 +120,6 @@
     [defaults setDouble:self.interval forKey:@"autoUpdateLocationInterval"];
     [defaults setDouble:intervalSeconds forKey:@"autoUpdateLocationIntervalTime"];
     [defaults synchronize];
-    NSLog(@"%1.0f", stepper.value);
 }
 
 - (void)viewDidLoad
@@ -168,8 +165,6 @@
 // Called when the UIKeyboardDidShowNotification is sent.
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
-    NSLog(@"%f",self.scrollView.contentInset.top);
-    NSLog(@"%f",self.scrollView.contentInset.bottom);
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey]
                      CGRectValue].size;
@@ -199,7 +194,6 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     self.activeField = textField;
-    NSLog(@"activefield");
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
@@ -207,24 +201,24 @@
 }
 
 - (IBAction)updateLocation:(id)sender {
-    NSLog(@"button press to update location");
-    if ([CLLocationManager deferredLocationUpdatesAvailable]) {
-        NSLog(@"deffered okay");
-    } else {
-        NSLog(@"deffered bad");
-    }
-    
-    if ([[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusAvailable) {
-        
-        NSLog(@"Background updates are available for the app.");
-    }else if([[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusDenied)
-    {
-        NSLog(@"The user explicitly disabled background behavior for this app or for the whole system.");
-    }else if([[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusRestricted)
-    {
-        NSLog(@"Background updates are unavailable and the user cannot enable them again. For example, this status can occur when parental controls are in effect for the current user.");
-    }
-    [locationManager startMonitoringSignificantLocationChanges];
+//    NSLog(@"button press to update location");
+//    if ([CLLocationManager deferredLocationUpdatesAvailable]) {
+//        NSLog(@"deffered okay");
+//    } else {
+//        NSLog(@"deffered bad");
+//    }
+//    
+//    if ([[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusAvailable) {
+//        
+//        NSLog(@"Background updates are available for the app.");
+//    }else if([[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusDenied)
+//    {
+//        NSLog(@"The user explicitly disabled background behavior for this app or for the whole system.");
+//    }else if([[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusRestricted)
+//    {
+//        NSLog(@"Background updates are unavailable and the user cannot enable them again. For example, this status can occur when parental controls are in effect for the current user.");
+//    }
+    [locationManager startUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -239,16 +233,28 @@
 {
     NSLog(@"tracker");
     CLLocation* location = (CLLocation*)[locations lastObject];
-        if (location) {
-            CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-            [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-                CLPlacemark *placemark = [placemarks lastObject];
-                NSDictionary *address = placemark.addressDictionary;
-                NSArray *formattedAddress = [address valueForKey:@"FormattedAddressLines"];
-                NSString *locstr = [formattedAddress componentsJoinedByString:@" "];
-                [BarnacleRouteFetcher updateLocation: location locationString:locstr msg:self.msg.text];
-            }];
+    if (location) {
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+            CLPlacemark *placemark = [placemarks lastObject];
+            NSDictionary *address = placemark.addressDictionary;
+            NSArray *formattedAddress = [address valueForKey:@"FormattedAddressLines"];
+            NSString *locstr = [formattedAddress componentsJoinedByString:@" "];
             
+            dispatch_queue_t fetchQ = dispatch_queue_create("Tracker Message", NULL);
+            dispatch_async(fetchQ, ^{
+                [BarnacleRouteFetcher updateLocation: location locationString:locstr msg:self.msg.text];                        dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tracker"
+                                                                    message:@"Message Sent!"
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                    
+                });
+            });
+        }];
+        
     }
     MKCoordinateRegion region;
     MKCoordinateSpan span;

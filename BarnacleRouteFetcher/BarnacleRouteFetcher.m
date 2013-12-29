@@ -34,7 +34,6 @@ static NSDictionary* intervalDic = nil;
     return intervalDic;
 }
 
-
 static NSDictionary* intervalValueDic = nil;
 + (NSDictionary*)getIntervalValueDictionary {
     if (intervalValueDic == nil) {
@@ -145,10 +144,6 @@ static NSDictionary* intervalValueDic = nil;
     NSError *error;
     NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/create"] error:error];
     return jsonResponse;
-//    if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
-//        return YES;
-//    }
-//    return NO;
 }
 
 
@@ -183,10 +178,6 @@ static NSDictionary* intervalValueDic = nil;
     NSError *error;
     NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/sendconfirm"] error:error];
     return [jsonResponse objectForKey:@"status"];
-//    if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
-//        return YES;
-//    }
-//    return NO;
 }
 
 @end

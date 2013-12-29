@@ -8,8 +8,6 @@
 
 #import "StandardAnnotation.h"
 
-
-
 @implementation StandardAnnotation
 @synthesize location;
 @synthesize coordinate;
