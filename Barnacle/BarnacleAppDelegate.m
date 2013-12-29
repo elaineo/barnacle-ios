@@ -29,13 +29,14 @@
     // location manager
     self.lastUpdate = [[NSDate alloc] initWithTimeIntervalSince1970: 0];
     self.locationManager = [[CLLocationManager alloc] init];
-    if ( [CLLocationManager locationServicesEnabled] ) {
+    
+    NSUserDefaults *fetchDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL autoUpdateLocation = [fetchDefaults boolForKey:@"autoUpdateLocation"];
+    if ( [CLLocationManager locationServicesEnabled] && autoUpdateLocation) {
         self.locationManager.delegate = self;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
         self.locationManager.activityType = CLActivityTypeAutomotiveNavigation;
-//        [self.locationManager startUpdatingLocation];
         [self.locationManager startMonitoringSignificantLocationChanges];
-
     }
     return YES;
 }

@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "BarnacleRouteFetcher.h"
+#import "BarnacleAppDelegate.h"
 #import "StandardAnnotation.h"
 
 @interface TrackerViewController ()
@@ -89,10 +90,13 @@
 
 - (IBAction)autoUpdateSwitch:(id)sender {
     UISwitch *stepper = (UISwitch *) sender;
+    BarnacleAppDelegate* appdelegate = (BarnacleAppDelegate*)[[UIApplication sharedApplication] delegate];
     if ([stepper isOn]) {
         self.autoUpdateState = YES;
+        [appdelegate.locationManager startMonitoringSignificantLocationChanges];
     } else {
         self.autoUpdateState = NO;
+        [appdelegate.locationManager stopMonitoringSignificantLocationChanges];
     }
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:[stepper isOn] forKey:@"autoUpdateLocation"];
