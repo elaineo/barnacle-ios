@@ -15,7 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *locstart;
 @property (weak, nonatomic) IBOutlet UILabel *locend;
-@property (weak, nonatomic) IBOutlet UILabel *statusValue;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *delivend;
 @property (weak, nonatomic) IBOutlet UISwitch *active;
 
@@ -35,7 +35,16 @@
     self.title = @"Details";
     self.locstart.text = self.route.locstart;
     self.locend.text = self.route.locend;
-    self.statusValue.text =  [NSString stringWithFormat:@"%d", self.route.statusint];
+    switch (self.route.statusint) {
+        case 0:
+            self.statusLabel.text = @"Route is active";
+            break;
+        case 1:
+            self.statusLabel.text = @"Route is inactive";
+            break;
+        default:
+            break;
+    }
     if (self.route.statusint <= 1) {
         [self active].hidden = NO;
     } else {
@@ -57,6 +66,7 @@
         [self route].statusint = 1;
         self.route.status = @"Inactive";
     }
+    [self updateUI];
     dispatch_queue_t fetchQ = dispatch_queue_create("Status Update", NULL);
     dispatch_async(fetchQ, ^{
         [BarnacleRouteFetcher switchStatus: self.route.routekey];
