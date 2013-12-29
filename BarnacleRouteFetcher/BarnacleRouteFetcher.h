@@ -26,7 +26,7 @@
 + (BOOL) switchStatus:(NSString*) routeKey;
 + (BOOL) deleteRoute:(NSString*) routeKey;
 + (BOOL) updateLocation: (CLLocation*) location locationString: (NSString*) locstr msg: (NSString*) msg; 
-+ (BOOL) createRouteFrom:(CLPlacemark*) origin to: (CLPlacemark*) destination by: (NSDate*) date;
-+ (BOOL) trackSubmit: (NSString*) routeKey;
++ (NSDictionary *) createRouteFrom:(CLPlacemark*) origin to: (CLPlacemark*) destination by: (NSDate*) date;
++ (NSString*) trackSubmit: (NSString*) routeKey;
 + (BOOL) trackConfirm: (NSString*) routeKey withCode: (NSString*) code;
 @end

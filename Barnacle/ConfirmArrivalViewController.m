@@ -36,7 +36,21 @@
 }
 
 - (IBAction)submitPushed:(id)sender {
-    [BarnacleRouteFetcher trackSubmit:self.route.routekey];
+    dispatch_queue_t fetchQ = dispatch_queue_create("Send Confirm", NULL);
+    dispatch_async(fetchQ, ^{
+        NSString* status = [BarnacleRouteFetcher trackSubmit:self.route.routekey];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delivery"
+                                                            message:status
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+    });
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

@@ -127,7 +127,7 @@ static NSDictionary* intervalValueDic = nil;
     return NO;
 }
 
-+ (BOOL) createRouteFrom:(CLPlacemark*) origin to: (CLPlacemark*) destination by: (NSDate*) date {
++ (NSDictionary *) createRouteFrom:(CLPlacemark*) origin to: (CLPlacemark*) destination by: (NSDate*) date {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM/dd/yyyy"];
     NSString *stringFromDate = [formatter stringFromDate:date];
@@ -144,10 +144,11 @@ static NSDictionary* intervalValueDic = nil;
                                @"delivend": stringFromDate};
     NSError *error;
     NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/create"] error:error];
-    if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
-        return YES;
-    }
-    return NO;
+    return jsonResponse;
+//    if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
+//        return YES;
+//    }
+//    return NO;
 }
 
 
@@ -176,15 +177,16 @@ static NSDictionary* intervalValueDic = nil;
     return NO;
 }
 
-+ (BOOL) trackSubmit: (NSString*) routeKey
++ (NSString*) trackSubmit: (NSString*) routeKey
 {
     NSDictionary *jsonDict = @{@"routekey" : routeKey};
     NSError *error;
     NSDictionary *jsonResponse = [self postJSON:jsonDict url:[NSURL URLWithString:@"http://www.gobarnacle.com/track/sendconfirm"] error:error];
-    if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
-        return YES;
-    }
-    return NO;
+    return [jsonResponse objectForKey:@"status"];
+//    if ([@"ok" isEqualToString:[jsonResponse objectForKey:@"status"]]) {
+//        return YES;
+//    }
+//    return NO;
 }
 
 @end

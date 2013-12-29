@@ -51,7 +51,7 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSLog(@"action sehet");
+    NSLog(@"action sheet");
     switch(buttonIndex){
         case 0:{
             [BarnacleRouteFetcher createRouteFrom:self.origin to:self.destination by:self.datePicker.date];
