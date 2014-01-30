@@ -72,7 +72,7 @@
     NSLog(@"ooo");
     NSDictionary* response = [BarnacleRouteFetcher createRouteFrom:self.origin to:self.destination by:self.datePicker.date];
     NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.gobarnacle.com%@", [[response objectForKey:@"route"] objectForKey:@"post_url"]]];
-    NSLog([url description]);
+//    NSLog([url description]);
     [FBDialogs presentShareDialogWithLink:url
                                   handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
                                       if(error) {
