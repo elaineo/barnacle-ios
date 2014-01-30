@@ -39,6 +39,13 @@
         [self.manageRouteButton setHidden:YES];
         [self.trackDeliveryButton setHidden:YES];
     }
+    NSUserDefaults *fetchDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL autoUpdateState = [fetchDefaults boolForKey:@"autoUpdateLocation"];
+    if (autoUpdateState) {
+        [self.trackDeliveryButton setTitle:@"Manage Tracking" forState:UIControlStateNormal];
+    } else {
+        [self.trackDeliveryButton setTitle:@"Track Delivery" forState:UIControlStateNormal];
+    }
 }
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
