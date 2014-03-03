@@ -81,6 +81,15 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+    if (![BarnacleRouteFetcher isLoggedIn]) {
+        // login
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [BarnacleRouteFetcher login:[defaults valueForKey:@"fbid"]
+                          firstName:[defaults valueForKey:@"first_name"]
+                           lastName:[defaults valueForKey:@"last_name"]
+                              email:[defaults valueForKey:@"email"]];
+    }
+    
     CLLocation* location = (CLLocation*)[locations lastObject];
     NSUserDefaults *fetchDefaults = [NSUserDefaults standardUserDefaults];
     BOOL autoUpdateState = [fetchDefaults boolForKey:@"autoUpdateLocation"];

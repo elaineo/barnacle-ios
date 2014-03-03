@@ -67,23 +67,13 @@
                                        NSError *error) {
          if (!error && ![BarnacleRouteFetcher isLoggedIn]) {
              // login
+                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setValue:user.id forKey:@"fbid"];
+            [defaults setValue:user.first_name forKey:@"first_name"];
+            [defaults setValue:user.last_name forKey:@"last_name"];
+            [defaults setValue:[user objectForKey:@"email"]forKey:@"email"];
              [BarnacleRouteFetcher login:user.id firstName:user.first_name lastName:user.last_name email:[user objectForKey:@"email"]];
-//             NSMutableURLRequest *request = [NSMutableURLRequest
-//                                             requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/signup/fb"]];
-//             NSDictionary *requestData = [[NSDictionary alloc] initWithObjectsAndKeys:
-//                                          user.id, @"id",
-//                                          user.first_name, @"first_name",
-//                                          user.last_name, @"last_name",
-//                                          [user objectForKey:@"email"], @"email",                    user.location[@"name"], @"location",nil];
-////             NSError *error;
-//             NSData *postData = [NSJSONSerialization dataWithJSONObject:requestData options:0 error:&error];
-//             [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//             [request setHTTPMethod:@"POST"];
-//             [request setHTTPBody:postData];
-//             NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-//             if (!connection) {
-//                 NSLog(@"error");
-//             }
+
          } else {
              
          }
