@@ -72,6 +72,26 @@ static NSDictionary* intervalValueDic = nil;
     return jsonReponse;
 }
 
+
++ (BOOL) login: (NSString*) fbid firstName: (NSString*) firstName lastName: (NSString*) lastName email: (NSString*) email {
+    NSDictionary* requestData = @{@"id" : fbid,
+                                  @"first_name": firstName,
+                                  @"last_name" : lastName,
+                                  @"email" : email};
+    NSMutableURLRequest *request = [NSMutableURLRequest
+                                    requestWithURL:[NSURL URLWithString:@"http://www.gobarnacle.com/signup/fb"]];
+    NSError *error;
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:requestData options:0 error:&error];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:postData];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    if (!connection) {
+        NSLog(@"error");
+    }
+    return YES;
+}
+
 + (BOOL) isLoggedIn {
     NSHTTPCookie *cookie;
     NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
