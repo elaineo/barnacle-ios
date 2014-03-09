@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *updateIntervalDisplay;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property BOOL autoUpdateState;
+@property BOOL sendMessageLock;
 @property (weak, nonatomic) IBOutlet UITextField *msg;
 @property double interval;
 @property (weak, nonatomic) IBOutlet UISwitch *autoSwitch;
@@ -36,6 +37,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.sendMessageLock = false;
     }
     return self;
 }
@@ -218,6 +220,7 @@
 //    {
 //        NSLog(@"Background updates are unavailable and the user cannot enable them again. For example, this status can occur when parental controls are in effect for the current user.");
 //    }
+    self.sendMessageLock = false;
     [locationManager startUpdatingLocation];
 }
 
@@ -233,7 +236,8 @@
 {
     NSLog(@"tracker");
     CLLocation* location = (CLLocation*)[locations lastObject];
-    if (location) {
+    if (location && !self.sendMessageLock) {
+        self.sendMessageLock = true;
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
         [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
             CLPlacemark *placemark = [placemarks lastObject];
