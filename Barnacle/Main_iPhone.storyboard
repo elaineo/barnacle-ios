@@ -47,7 +47,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ty2-2k-g4B">
-                                <rect key="frame" x="124" y="74" width="72" height="72"/>
+                                <rect key="frame" x="59" y="82" width="72" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" none="YES" image="YES"/>
@@ -57,6 +57,16 @@
                                 </state>
                                 <connections>
                                     <action selector="barnacleButonPressed:" destination="pmE-2i-W1a" eventType="touchUpInside" id="w3B-K2-tb3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppW-8A-v42">
+                                <rect key="frame" x="146" y="103" width="112" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="gobarnalce.com">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="barnacleButonPressed:" destination="pmE-2i-W1a" eventType="touchUpInside" id="gdc-f4-gJi"/>
                                 </connections>
                             </button>
                         </subviews>
