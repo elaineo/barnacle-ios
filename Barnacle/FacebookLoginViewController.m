@@ -92,6 +92,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)barnacleButonPressed:(id)sender {
+    NSURL *url = [NSURL URLWithString: @"http://www.gobarnacle.com"];
+    [[UIApplication sharedApplication] openURL:url];
+    
+}
+
 - (IBAction)buttonPressed:(id)sender {
 
 }
