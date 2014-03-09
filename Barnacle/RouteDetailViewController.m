@@ -91,6 +91,11 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(promptDelete)];
 }
 
+- (IBAction)openTrackerPage:(id)sender {
+    NSURL *url = [NSURL URLWithString: [@"http://www.gobarnacle.com" stringByAppendingString:self.route.posturl]];
+    [[UIApplication sharedApplication] openURL:url];
+}
+
 - (void)promptDelete {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
                                                        delegate:self
