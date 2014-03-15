@@ -68,7 +68,7 @@
          if (!error && ![BarnacleRouteFetcher isLoggedIn]) {
              // login
                  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            [defaults setValue:user.id forKey:@"fbid"];
+            [defaults setValue:[user objectForKey:@"id"]forKey:@"fbid"];
             [defaults setValue:user.first_name forKey:@"first_name"];
             [defaults setValue:user.last_name forKey:@"last_name"];
             [defaults setValue:[user objectForKey:@"email"]forKey:@"email"];
