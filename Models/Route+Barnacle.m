@@ -33,7 +33,7 @@
         route.posturl = routeDictionary[BARNACLE_POST_URL];
         route.locstart = routeDictionary[BARNACLE_LOC_START];
         route.locend = routeDictionary[BARNACLE_LOC_END];
-        route.statusint = [routeDictionary[BARNACLE_STATUSINT] integerValue];
+        route.statusint = (int)[routeDictionary[BARNACLE_STATUSINT] integerValue];
         switch ([routeDictionary[BARNACLE_STATUSINT] integerValue]) {
             case 0:
                 route.status = @"Active";

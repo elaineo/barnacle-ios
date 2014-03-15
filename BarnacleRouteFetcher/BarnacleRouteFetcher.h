@@ -21,6 +21,7 @@
 + (NSDictionary*)getIntervalDictionary;
 + (NSDictionary*)getIntervalValueDictionary;
 + (NSArray *)latestRoutes;
++ (NSString*) imageUploadUrl;
 + (BOOL) login: (NSString*) fbid firstName: (NSString*) firstName lastName: (NSString*) lastName email: (NSString*) email;
 + (BOOL) isLoggedIn;
 + (BOOL) endDrive;

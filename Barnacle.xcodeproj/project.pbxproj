@@ -19,6 +19,7 @@
 		1F4B07E2180CE84600EE6DC2 /* BarnacleRouteFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4B07E1180CE84600EE6DC2 /* BarnacleRouteFetcher.m */; };
 		1F4B07E4180CF35F00EE6DC2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4B07E3180CF35F00EE6DC2 /* CoreData.framework */; };
 		1F4B07E8180CF42F00EE6DC2 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4B07E6180CF42F00EE6DC2 /* CoreDataTableViewController.m */; };
+		1F681DEF18D420AF006EA6D1 /* ImageUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F681DEE18D420AF006EA6D1 /* ImageUtils.m */; };
 		1F8086E7186E54E4003A4457 /* ConfirmArrivalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8086E6186E54E4003A4457 /* ConfirmArrivalViewController.m */; };
 		1F939C35180B38D6001A5BDD /* RoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F939C34180B38D6001A5BDD /* RoutesViewController.m */; };
 		1F939C3B180BA157001A5BDD /* BarnacleModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F939C39180BA157001A5BDD /* BarnacleModel.xcdatamodeld */; };
@@ -86,6 +87,8 @@
 		1F4B07E3180CF35F00EE6DC2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1F4B07E5180CF42F00EE6DC2 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		1F4B07E6180CF42F00EE6DC2 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
+		1F681DED18D420AF006EA6D1 /* ImageUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageUtils.h; path = Barnacle/ImageUtils.h; sourceTree = "<group>"; };
+		1F681DEE18D420AF006EA6D1 /* ImageUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageUtils.m; path = Barnacle/ImageUtils.m; sourceTree = "<group>"; };
 		1F8086E5186E54E4003A4457 /* ConfirmArrivalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmArrivalViewController.h; sourceTree = "<group>"; };
 		1F8086E6186E54E4003A4457 /* ConfirmArrivalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmArrivalViewController.m; sourceTree = "<group>"; };
 		1F939C33180B38D6001A5BDD /* RoutesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutesViewController.h; sourceTree = "<group>"; };
@@ -177,6 +180,8 @@
 		1FA2E43317F2B52E00CA5CF9 = {
 			isa = PBXGroup;
 			children = (
+				1F681DED18D420AF006EA6D1 /* ImageUtils.h */,
+				1F681DEE18D420AF006EA6D1 /* ImageUtils.m */,
 				1F2652E0180CFB67008476F6 /* Constants.h */,
 				1F4B07E0180CE84600EE6DC2 /* BarnacleRouteFetcher.h */,
 				1F4B07E1180CE84600EE6DC2 /* BarnacleRouteFetcher.m */,
@@ -344,7 +349,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Barnacle;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Warren Mar";
 				TargetAttributes = {
 					1FA2E43B17F2B52E00CA5CF9 = {
@@ -416,6 +421,7 @@
 				1F3D65EB17F928D900C78DF0 /* FacebookLoginViewController.m in Sources */,
 				1FCADFC8180E5B7B00B41CBE /* Route.m in Sources */,
 				1FBC42F11848197D00ACA298 /* RouteCreationDestinationViewController.m in Sources */,
+				1F681DEF18D420AF006EA6D1 /* ImageUtils.m in Sources */,
 				1F328739181E1B4C003E5EB1 /* TrackerViewController.m in Sources */,
 				1FBC42F418481B1F00ACA298 /* RouteCreationDateViewController.m in Sources */,
 				1FA2E45917F2B52E00CA5CF9 /* BarnacleViewController.m in Sources */,
@@ -483,7 +489,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -523,7 +528,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -598,7 +602,6 @@
 		1FA2E47517F2B52E00CA5CF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Barnacle.app/Barnacle";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -621,7 +624,6 @@
 		1FA2E47617F2B52E00CA5CF9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Barnacle.app/Barnacle";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

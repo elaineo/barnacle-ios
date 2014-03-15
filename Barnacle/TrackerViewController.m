@@ -10,8 +10,10 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "BarnacleRouteFetcher.h"
+#import "ImageUtils.h"
 #import "BarnacleAppDelegate.h"
 #import "StandardAnnotation.h"
+#import "UIKit/UIKit.h"
 
 @interface TrackerViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *updateIntervalDisplay;
@@ -24,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIStepper *intervalIncrementer;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property CLLocation *lastLocation;
+@property NSString* imageLink;
 @property (weak, nonatomic) UITextField *activeField;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @end
@@ -38,6 +41,7 @@
     if (self) {
         // Custom initialization
         self.sendMessageLock = false;
+        self.imageLink = nil;
     }
     return self;
 }
@@ -238,6 +242,12 @@
     CLLocation* location = (CLLocation*)[locations lastObject];
     if (location && !self.sendMessageLock) {
         self.sendMessageLock = true;
+        NSString* message = self.msg.text;
+        if (self.imageLink) {
+            message = self.imageLink;
+            self.imageLink = nil;
+        }
+        
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
         [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
             CLPlacemark *placemark = [placemarks lastObject];
@@ -247,7 +257,7 @@
             
             dispatch_queue_t fetchQ = dispatch_queue_create("Tracker Message", NULL);
             dispatch_async(fetchQ, ^{
-                [BarnacleRouteFetcher updateLocation: location locationString:locstr msg:self.msg.text];                        dispatch_async(dispatch_get_main_queue(), ^{
+                [BarnacleRouteFetcher updateLocation: location locationString:locstr msg:message];                        dispatch_async(dispatch_get_main_queue(), ^{
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tracker"
                                                                     message:@"Message Sent!"
                                                                    delegate:nil
@@ -285,6 +295,137 @@
     NSLog(@"resume");
 }
 
+- (IBAction)takePhoto:(id)sender {
+    @try
+    {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.delegate = self;        
+
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+    @catch (NSException *exception)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Camera" message:@"Camera is not available  " delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSLog(@"Send Image");
+    UIImage* image = (UIImage*) [info objectForKey:UIImagePickerControllerOriginalImage];
+    image = [ImageUtils imageWithImage:image scaledToDimension:1280.0];
+    
+  //
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+//     NSData *imageData = UIImagePNGRepresentation(image);
+//    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[imageData length]];
+    
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setTimeoutInterval:30];
+    [request setHTTPMethod:@"POST"];
+    
+    NSString *BoundaryConstant = @"----------V2ymHFg03ehbqgZCaKO6jy";
+
+    // set Content-Type in HTTP header
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", BoundaryConstant];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    // post body
+    NSMutableData *body = [NSMutableData data];
+    
+    // add image data
+    NSString* FileParamConstant = @"file";
+
+    if (imageData) {
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"image.jpg\"\r\n", FileParamConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:imageData];
+        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // setting the body of the post to the reqeust
+    [request setHTTPBody:body];
+    
+    // set the content-length
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[body length]];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    
+    // set URL i
+    NSString *uploadUrl = [BarnacleRouteFetcher imageUploadUrl];
+    [request setURL:[NSURL URLWithString:uploadUrl]];
+    
+    NSURLResponse *response;
+    NSError *error;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
+    if (error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }
+    NSDictionary* jsonReponse = [NSJSONSerialization
+                                 JSONObjectWithData:data
+                                 options:kNilOptions
+                                 error:&error];
+    if (error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }
+
+    self.imageLink = [jsonReponse valueForKey:@"url"];
+    self.sendMessageLock = false;
+    [locationManager startUpdatingLocation];
+    
+
+//
+//    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+//    if (connection) {
+//
+//        // response data of the request
+//    }
+
+//
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
+
+
+//- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+//{
+//    // Append the new data to receivedData.
+//    // receivedData is an instance variable declared elsewhere.
+//    NSError* error;
+//    
+//    NSDictionary* jsonReponse = [NSJSONSerialization
+//                                 JSONObjectWithData:data
+//                                 options:kNilOptions
+//                                 error:&error];
+//    NSLog([error description]);
+//    NSLog([jsonReponse valueForKey:@"url"]);
+//    self.imageLink = [jsonReponse valueForKey:@"url"];
+//    self.sendMessageLock = false;
+//    [locationManager startUpdatingLocation];
+//
+//}
+//
+
+
+
+//-(NSURLRequest *)connection:(NSURLConnection *)connection
+//            willSendRequest:(NSURLRequest *)request
+//           redirectResponse:(NSURLResponse *)redirectResponse {
+//    if (redirectResponse) {
+//        NSLog(@"AAA");
+//    }
+//    return request;
+//}
 
 //- (void) locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error
 //{

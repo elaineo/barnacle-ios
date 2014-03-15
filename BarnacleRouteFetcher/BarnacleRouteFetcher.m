@@ -200,4 +200,24 @@ static NSDictionary* intervalValueDic = nil;
     return [jsonResponse objectForKey:@"status"];
 }
 
++ (NSString*) imageUploadUrl {
+    // TODO remove
+    NSURL* url = [NSURL URLWithString:@"http://www.gobarnacle.com/tracker/image_upload_url"];
+//    NSURL* url = [NSURL URLWithString:@"http://192.168.42.64:8080/tracker/image_upload_url"];
+
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"GET"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    NSError* error;
+        NSURLResponse *response;
+
+
+    NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
+    NSDictionary* jsonReponse = [NSJSONSerialization
+                                 JSONObjectWithData:urlData
+                                 options:kNilOptions
+                                 error:&error];
+    return [jsonReponse valueForKey:@"upload_url"];
+}
+
 @end
